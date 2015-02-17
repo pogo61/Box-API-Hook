@@ -1,5 +1,5 @@
 # Box-API-Hook
-API Hook using SOA Software's Products to integrate lead generation into BOX
+API Hook using SOA Software's Products to integrate lead generation that takes a lead, inserts it into SalesForce, then MailGun, then Appends it to a file stored in BOX
 ## BOX API 
 ### About the API
 - The Box Content API gives you access to the content management features you see in our web app and lets you extend them for use in your own app.
