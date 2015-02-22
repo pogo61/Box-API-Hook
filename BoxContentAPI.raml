@@ -1,0 +1,3460 @@
+#%RAML 0.8
+title: "Box Content API"
+version: "2.0"
+baseUri: "https://api.box.com/2.0"
+schemas: 
+    - 
+        "newFolder": |
+                {
+                  "type": "object",
+                  "$schema": "http://json-schema.org/draft-03/schema",
+                  "id": "http://jsonschema.net",
+                  "required": false,
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "required": true
+                    },
+                    "parent": {
+                      "required": true,
+                      "id": {
+                        "type": "integer",
+                        "required": true
+                      }
+                    }
+                  }
+                }
+    - 
+        "updateFolder": |
+                {
+                  "type": "object",
+                  "$schema": "http://json-schema.org/draft-03/schema",
+                  "id": "http://jsonschema.net",
+                  "required": "true",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "required": "false"
+                    },
+                    "description": {
+                      "type": "string",
+                      "required": "false"
+                    },
+                    "parent": {
+                      "required": "false",
+                      "id": {
+                        "type": "integer",
+                        "required": "true"
+                      }
+                    },
+                    "shared_link": {
+                      "required": "false",
+                      "access": {
+                        "description": "The level of access required for this shared link. Can be open, company, collaborators.",
+                        "type": "integer",
+                        "required": "true"
+                      },
+                      "unshared_at": {
+                        "description": "The day that this link should be disabled at. RFC-3339 valid date-timestamps are rounded off to the given day.",
+                        "type": "timestamp",
+                        "required": "false"
+                      },
+                      "permissions": {
+                        "description": "The set of permissions that apply to this link.",
+                        "required": "false",
+                        "can_download": {
+                          "type": "boolean",
+                          "required": false
+                        },
+                        "can_preview": {
+                          "type": "boolean",
+                          "required": false
+                        }
+                      },
+                      "folder_upload_email": {
+                        "required": "false",
+                        "access": {
+                          "description": "Can be open or collaborators.",
+                          "type": "string",
+                          "required": "true"
+                        }
+                      },
+                      "owned_by": {
+                        "required": "false",
+                        "id": {
+                          "description": "The ID of the user, should be your own user ID.",
+                          "type": "string",
+                          "required": "true"
+                        }
+                      },
+                      "sync_state": {
+                        "description": "Whether Box Sync clients will sync this folder. Values of synced or not_synced can be sent, while partially_synced may also be returned.",
+                        "type": "string",
+                        "required": "false"
+                      },
+                      "tags": {
+                        "description": "All tags attached to this folder. To add/remove a tag to/from a folder, you can first get the folder’s current tags (be sure to specify ?fields=tags, since the tags field is not returned by default); then modify the list as required; and finally, set the folder’s entire list of tags.",
+                        "type": "string",
+                        "required": "false"
+                      }
+                    }
+                  }
+                }
+    - 
+        "parent": |
+                {
+                  "required": "true",
+                  "id": {
+                    "type": "integer",
+                    "required": "true"
+                  }
+                }
+    - 
+        "updateFile": |
+                {
+                  "type": "object",
+                  "$schema": "http://json-schema.org/draft-03/schema",
+                  "id": "http://jsonschema.net",
+                  "required": "false",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "required": "false"
+                    },
+                    "description": {
+                      "type": "string",
+                      "required": "false"
+                    },
+                    "parent": {
+                      "required": "false",
+                      "id": {
+                        "type": "integer",
+                        "required": "true"
+                      }
+                    },
+                    "shared_link": {
+                      "required": "false",
+                      "access": {
+                        "description": "The level of access required for this shared link. Can be open, company, collaborators.",
+                        "type": "integer",
+                        "required": "true"
+                      },
+                      "unshared_at": {
+                        "description": "The day that this link should be disabled at. RFC-3339 valid date-timestamps are rounded off to the given day.",
+                        "type": "timestamp",
+                        "required": "false"
+                      },
+                      "permissions": {
+                        "description": "The set of permissions that apply to this link.",
+                        "required": "false",
+                        "download": {
+                          "type": "boolean",
+                          "required": false
+                        },
+                        "preview": {
+                          "type": "boolean",
+                          "required": false
+                        }
+                      },
+                      "tags": {
+                        "description": "All tags attached to this file. To add/remove a tag to/from a file, you can first get the file’s current tags (be sure to specify ?fields=tags, since the tags field is not returned by default); then modify the list as required; and finally, set the file’s entire list of tags.Type: array of strings",
+                        "type": "string",
+                        "required": "false"
+                      }
+                    }
+                  }
+                }
+    - 
+        "lock": |
+                {
+                  "required": "false",
+                  "type": {
+                    "type": "string",
+                    "required": "false"
+                  },
+                  "expires_at": {
+                    "type": "timestamp",
+                    "required": "false"
+                  },
+                  "is_download_prevented": {
+                    "type": "boolean",
+                    "required": "false"
+                  }
+                }
+    - 
+        "uploadFile": |
+                {
+                  "type": "object",
+                  "$schema": "http://json-schema.org/draft-03/schema",
+                  "id": "http://jsonschema.net",
+                  "required": "false",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "required": "true"
+                    },
+                    "parent": {
+                      "required": "true",
+                      "id": {
+                        "type": "integer",
+                        "required": "true"
+                      }
+                    },
+                    "content_created_at": {
+                      "required": "false",
+                      "type": "timestamp",
+                      "required": "true"
+                    },
+                    "content_modified_at": {
+                      "required": "false",
+                      "type": "timestamp",
+                      "required": "true"
+                    }
+                  }
+                }
+    - 
+        "newComment": |
+                {
+                  "type": "object",
+                  "$schema": "http://json-schema.org/draft-03/schema",
+                  "id": "http://jsonschema.net",
+                  "required": false,
+                  "properties": {
+                    "item": {
+                      "required": false,
+                      "type": {
+                        "type": "integer",
+                        "required": true
+                      },
+                      "id": {
+                        "type": "integer",
+                        "required": true
+                      }
+                    },
+                    "message": {
+                      "type": "string",
+                      "required": false
+                    },
+                    "tagged_message": {
+                      "type": "string",
+                      "required": false
+                    }
+                  }
+                }
+    - 
+        "newCollab": |
+                {
+                  "type": "object",
+                  "$schema": "http://json-schema.org/draft-03/schema",
+                  "id": "http://jsonschema.net",
+                  "required": false,
+                  "properties": {
+                    "item": {
+                      "required": false,
+                      "type": {
+                        "type": "string",
+                        "required": false
+                      },
+                      "id": {
+                        "type": "integer",
+                        "required": false
+                      }
+                    },
+                    "accessible_by": {
+                      "required": false,
+                      "type": {
+                        "type": "integer",
+                        "required": false
+                      },
+                      "id": {
+                        "type": "string",
+                        "required": false
+                      },
+                      "login": {
+                        "type": "string",
+                        "required": false
+                      }
+                    },
+                    "role": {
+                      "type": "string",
+                      "required": false
+                    }
+                  }
+                }
+    - 
+        "shared_item": |
+                {
+                  "type": "object",
+                  "$schema": "http://json-schema.org/draft-03/schema",
+                  "id": "http://jsonschema.net",
+                  "required": false,
+                  "properties": {
+                    "item": {
+                      "required": false,
+                      "type": {
+                        "type": "integer",
+                        "required": true
+                      },
+                      "id": {
+                        "type": "integer",
+                        "required": true
+                      }
+                    },
+                    "message": {
+                      "type": "string",
+                      "required": false
+                    },
+                    "tagged_message": {
+                      "type": "string",
+                      "required": false
+                    }
+                  }
+                }
+    - 
+        "owned_by": |
+                {
+                  "type": "object",
+                  "$schema": "http://json-schema.org/draft-03/schema",
+                  "id": "http://jsonschema.net",
+                  "required": false,
+                  "properties": {
+                    "owned_by": {
+                      "description": "The user who the folder will be transferred to",
+                      "required": true,
+                      "id": {
+                        "description": "The ID of the user who the folder will be transferred to",
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  }
+                }
+    - 
+        "groupMember": |
+                {
+                  "type": "object",
+                  "$schema": "http://json-schema.org/draft-03/schema",
+                  "id": "http://jsonschema.net",
+                  "required": false,
+                  "properties": {
+                    "user": {
+                      "description": "The user to assign to a group",
+                      "required": true,
+                      "id": {
+                        "description": "The ID of the user to add to the group",
+                        "type": "string",
+                        "required": true
+                      }
+                    },
+                    "group": {
+                      "description": "The group this user is to be added to",
+                      "required": true,
+                      "id": {
+                        "description": "TThe ID of the group to add the user into.",
+                        "type": "string",
+                        "required": false
+                      }
+                    },
+                     "role": {
+                      "description": "The role of the user in the group. Default is “member” option for “admin”",
+                      "required": false,
+                      "type": "string"
+                    }
+                  }
+                }
+    - 
+        "taskItem": |
+                {
+                  "type": "object",
+                  "$schema": "http://json-schema.org/draft-03/schema",
+                  "id": "http://jsonschema.net",
+                  "required": false,
+                  "properties": {
+                    "item": {
+                      "description": "The item this task is for",
+                      "required": true,
+                      "type": {
+                        "description": "The type of the item this task is for (currently only file is supported)",
+                        "type": "string",
+                        "required": true
+                      },
+                      "id": {
+                        "description": "The ID of the item this task is for",
+                        "type": "string",
+                        "required": true
+                      }
+                    },
+                    "action": {
+                      "description": "The action the task assignee will be prompted to do. Must be review",
+                      "required": true,
+                      "type": "string"
+                    },
+                     "message": {
+                      "description": "An optional message to include with the task",
+                      "required": false,
+                      "type": "string"
+                    },
+                    "due_at": {
+                      "description": "The day at which this task is due",
+                      "required": false,
+                      "type": "timestamp"
+                    }
+                  }
+                }
+    - 
+        "taskAssignment": |
+                {
+                  "type": "object",
+                  "$schema": "http://json-schema.org/draft-03/schema",
+                  "id": "http://jsonschema.net",
+                  "required": false,
+                  "properties": {
+                    "task": {
+                      "description": "The task this assignment is for",
+                      "required": true,
+                      "type": {
+                        "description": "Must be task",
+                        "type": "string",
+                        "required": true
+                      },
+                      "id": {
+                        "description": "The ID of the task this assignment is for",
+                        "type": "string",
+                        "required": true
+                      }
+                    },
+                    "assign_to": {
+                      "description": "The user this assignment is for. At least one of id or login is required in this object.",
+                      "required": true,
+                      "id": {
+                        "description": "The ID of the user this assignment is for.",
+                        "type": "string",
+                        "required": false
+                      },
+                      "login": {
+                        "description": "The login email address for the user this assignment is for.",
+                        "type": "string",
+                        "required": false
+                      }
+                    }
+                  }
+                }
+securitySchemes: 
+    - 
+        "oauth_2_0": 
+            description: |
+                Dropbox supports OAuth 2.0 for authenticating all API requests.
+            type: "OAuth 2.0"
+            describedBy: 
+                headers: 
+                    "Authorization": 
+                        description: |
+                            Used to send a valid OAuth 2 access token. Do not use
+                            with the "access_token" query string parameter.
+                        type: string
+                        required: false
+                        repeat: false
+                queryParameters: 
+                    "access_token": 
+                        description: |
+                            Used to send a valid OAuth 2 access token. Do not use together with
+                            the "Authorization" header
+                        type: string
+                        required: false
+                        repeat: false
+                responses: 
+                    "401": 
+                        description: |
+                            Bad or expired token. This can happen if the user or Dropbox
+                            revoked or expired an access token. To fix, you should re-
+                            authenticate the user.
+                    "403": 
+                        description: |
+                            Bad OAuth request (wrong consumer key, bad nonce, expired
+                            imestamp...). Unfortunately, re-authenticating the user won't help here.
+            settings: 
+                authorizationUri: "https://app.box.com/api/oauth2/authorize"
+                accessTokenUri: "https://app.box.com/api/oauth2/token"
+                authorizationGrants: ["authorization_code"]
+securedBy: 
+    - 
+        oauth_2_0
+"/folders": 
+    displayName: "folders"
+    post: 
+        description: "<<crete a new folder>>"
+        body: 
+            "application/json": 
+                schema: "newFolder"
+        responses: 
+            "200": 
+                body: 
+                    "application/json": 
+                        example: |
+                            {
+                              "type": "folder",
+                              "id": "11446498",
+                              "sequence_id": "1",
+                              "etag": "1",
+                              "name": "Pictures",
+                              "created_at": "2012-12-12T10:53:43-08:00",
+                              "modified_at": "2012-12-12T11:15:04-08:00",
+                              "description": "Some pictures I took",
+                              "size": 629644,
+                              "path_collection": {
+                                  "total_count": 1,
+                                  "entries": [
+                                      {
+                                          "type": "folder",
+                                          "id": "0",
+                                          "sequence_id": null,
+                                          "etag": null,
+                                          "name": "All Files"
+                                      }
+                                  ]
+                              },
+                              "created_by": {
+                                  "type": "user",
+                                  "id": "17738362",
+                                  "name": "sean rose",
+                                  "login": "sean@box.com"
+                              },
+                              "modified_by": {
+                                  "type": "user",
+                                  "id": "17738362",
+                                  "name": "sean rose",
+                                  "login": "sean@box.com"
+                              },
+                              "owned_by": {
+                                  "type": "user",
+                                  "id": "17738362",
+                                  "name": "sean rose",
+                                  "login": "sean@box.com"
+                              },
+                              "shared_link": {
+                                  "url": "https://www.box.com/s/vspke7y05sb214wjokpk",
+                                  "download_url": null,
+                                  "vanity_url": null,
+                                  "is_password_enabled": false,
+                                  "unshared_at": null,
+                                  "download_count": 0,
+                                  "preview_count": 0,
+                                  "access": "open",
+                                  "permissions": {
+                                      "can_download": true,
+                                      "can_preview": true
+                                  }
+                              },
+                              "folder_upload_email": {
+                                  "access": "open",
+                                  "email": "upload.Picture.k13sdz1@u.box.com"
+                              },
+                              "parent": {
+                                  "type": "folder",
+                                  "id": "0",
+                                  "sequence_id": null,
+                                  "etag": null,
+                                  "name": "All Files"
+                              },
+                              "item_status": "active",
+                              "item_collection": {
+                                  "total_count": 0,
+                                  "entries": [],
+                                  "offset": 0,
+                                  "limit": 100
+                              }
+                            }
+    "/{id}": 
+        displayName: "folder id"
+        uriParameters: 
+            "id": 
+                displayName: "id"
+                type: string
+                required: true
+                repeat: false
+        post: 
+            description: "<<Restores an item that has been moved to the trash. Default behavior is to restore the item to the folder it was in before it was moved to the trash. If that parent folder no longer exists or if there is now an item with the same name in that parent folder, the new parent folder and/or new name will need to be included in the request.>>"
+            body: 
+                "application/json": 
+                    schema: "newFolder"
+            responses: 
+                "200": 
+                    body: 
+                        "application/json": 
+                            example: |
+                                {
+                                  "type": "folder",
+                                  "id": "588970022",
+                                  "sequence_id": "2",
+                                  "etag": "2",
+                                  "name": "heloo world",
+                                  "created_at": "2013-01-15T16:15:27-08:00",
+                                  "modified_at": "2013-02-07T13:26:00-08:00",
+                                  "description": "",
+                                  "size": 0,
+                                  "path_collection": {
+                                      "total_count": 1,
+                                      "entries": [
+                                          {
+                                              "type": "folder",
+                                              "id": "0",
+                                              "sequence_id": null,
+                                              "etag": null,
+                                              "name": "All Files"
+                                          }
+                                      ]
+                                  },
+                                  "created_by": {
+                                      "type": "user",
+                                      "id": "181757341",
+                                      "name": "sean test",
+                                      "login": "sean+test@box.com"
+                                  },
+                                  "modified_by": {
+                                      "type": "user",
+                                      "id": "181757341",
+                                      "name": "sean test",
+                                      "login": "sean+test@box.com"
+                                  },
+                                  "trashed_at": null,
+                                  "purged_at": null,
+                                  "content_created_at": "2013-01-15T16:15:27-08:00",
+                                  "content_modified_at": "2013-02-07T13:26:00-08:00",
+                                  "owned_by": {
+                                      "type": "user",
+                                      "id": "181757341",
+                                      "name": "sean test",
+                                      "login": "sean+test@box.com"
+                                  },
+                                  "shared_link": null,
+                                  "folder_upload_email": null,
+                                  "parent": {
+                                      "type": "folder",
+                                      "id": "0",
+                                      "sequence_id": null,
+                                      "etag": null,
+                                      "name": "All Files"
+                                  },
+                                  "item_status": "active"
+                                }
+        delete: 
+            description: "<<Used to delete a folder. A recursive parameter must be included in order to delete folders that have items inside of them. An optional If-Match header can be included to ensure that client only deletes the folder if it knows about the latest version.>>"
+            headers: 
+                "If-Match": 
+                    type: string
+                    required: false
+                    repeat: false
+            queryParameters: 
+                "fields": 
+                    type: string
+                    required: false
+                    repeat: false
+                "recursive": 
+                    type: boolean
+                    required: false
+                    repeat: false
+        put: 
+            description: "<<Update Information About a Folder>>"
+            headers: 
+                "If-Match": 
+                    type: string
+                    required: false
+                    repeat: false
+            body: 
+                "application/json": 
+                    schema: "updateFolder"
+            responses: 
+                "200": 
+                    body: 
+                        "application/json": 
+                            example: |
+                                {
+                                  "type": "folder",
+                                  "id": "11446498",
+                                  "sequence_id": "1",
+                                  "etag": "1",
+                                  "name": "New Folder Name!",
+                                  "created_at": "2012-12-12T10:53:43-08:00",
+                                  "modified_at": "2012-12-12T11:15:04-08:00",
+                                  "description": "Some pictures I took",
+                                  "size": 629644,
+                                  "path_collection": {
+                                      "total_count": 1,
+                                      "entries": [
+                                          {
+                                              "type": "folder",
+                                              "id": "0",
+                                              "sequence_id": null,
+                                              "etag": null,
+                                              "name": "All Files"
+                                          }
+                                      ]
+                                  },
+                                  "created_by": {
+                                      "type": "user",
+                                      "id": "17738362",
+                                      "name": "sean rose",
+                                      "login": "sean@box.com"
+                                  },
+                                  "modified_by": {
+                                      "type": "user",
+                                      "id": "17738362",
+                                      "name": "sean rose",
+                                      "login": "sean@box.com"
+                                  },
+                                  "owned_by": {
+                                      "type": "user",
+                                      "id": "17738362",
+                                      "name": "sean rose",
+                                      "login": "sean@box.com"
+                                  },
+                                  "shared_link": {
+                                      "url": "https://www.box.com/s/vspke7y05sb214wjokpk",
+                                      "download_url": null,
+                                      "vanity_url": null,
+                                      "is_password_enabled": false,
+                                      "unshared_at": null,
+                                      "download_count": 0,
+                                      "preview_count": 0,
+                                      "access": "open",
+                                      "permissions": {
+                                          "can_download": true,
+                                          "can_preview": true
+                                      }
+                                  },
+                                  "folder_upload_email": {
+                                      "access": "open",
+                                      "email": "upload.Picture.k13sdz1@u.box.com"
+                                  },
+                                  "parent": {
+                                      "type": "folder",
+                                      "id": "0",
+                                      "sequence_id": null,
+                                      "etag": null,
+                                      "name": "All Files"
+                                  },
+                                  "item_status": "active",
+                                  "item_collection": {
+                                      "total_count": 1,
+                                      "entries": [
+                                          {
+                                              "type": "file",
+                                              "id": "5000948880",
+                                              "sequence_id": "3",
+                                              "etag": "3",
+                                              "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc",
+                                              "name": "tigers.jpeg"
+                                          }
+                                      ],
+                                      "offset": 0,
+                                      "limit": 100
+                                  }
+                                }
+        get: 
+            description: "<<get information about a folder>>"
+            responses: 
+                "200": 
+                    body: 
+                        "application/json": 
+                            example: |
+                                {
+                                  "type": "folder",
+                                  "id": "11446498",
+                                  "sequence_id": "1",
+                                  "etag": "1",
+                                  "name": "Pictures",
+                                  "created_at": "2012-12-12T10:53:43-08:00",
+                                  "modified_at": "2012-12-12T11:15:04-08:00",
+                                  "description": "Some pictures I took",
+                                  "size": 629644,
+                                  "path_collection": {
+                                      "total_count": 1,
+                                      "entries": [
+                                          {
+                                              "type": "folder",
+                                              "id": "0",
+                                              "sequence_id": null,
+                                              "etag": null,
+                                              "name": "All Files"
+                                          }
+                                      ]
+                                  },
+                                  "created_by": {
+                                      "type": "user",
+                                      "id": "17738362",
+                                      "name": "sean rose",
+                                      "login": "sean@box.com"
+                                  },
+                                  "modified_by": {
+                                      "type": "user",
+                                      "id": "17738362",
+                                      "name": "sean rose",
+                                      "login": "sean@box.com"
+                                  },
+                                  "owned_by": {
+                                      "type": "user",
+                                      "id": "17738362",
+                                      "name": "sean rose",
+                                      "login": "sean@box.com"
+                                  },
+                                  "shared_link": {
+                                      "url": "https://www.box.com/s/vspke7y05sb214wjokpk",
+                                      "download_url": null,
+                                      "vanity_url": null,
+                                      "is_password_enabled": false,
+                                      "unshared_at": null,
+                                      "download_count": 0,
+                                      "preview_count": 0,
+                                      "access": "open",
+                                      "permissions": {
+                                          "can_download": true,
+                                          "can_preview": true
+                                      }
+                                  },
+                                  "folder_upload_email": {
+                                      "access": "open",
+                                      "email": "upload.Picture.k13sdz1@u.box.com"
+                                  },
+                                  "parent": {
+                                      "type": "folder",
+                                      "id": "0",
+                                      "sequence_id": null,
+                                      "etag": null,
+                                      "name": "All Files"
+                                  },
+                                  "item_status": "active",
+                                  "item_collection": {
+                                      "total_count": 1,
+                                      "entries": [
+                                          {
+                                              "type": "file",
+                                              "id": "5000948880",
+                                              "sequence_id": "3",
+                                              "etag": "3",
+                                              "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc",
+                                              "name": "tigers.jpeg"
+                                          }
+                                      ],
+                                      "offset": 0,
+                                      "limit": 100
+                                  }
+                                }
+        "/item": 
+            displayName: "folder item"
+            get: 
+                description: "<<get the folder Item>>"
+                queryParameters: 
+                    "fields": 
+                        type: string
+                        required: false
+                        repeat: false
+                    "limt": 
+                        type: string
+                        required: false
+                        repeat: false
+                    "offset": 
+                        type: string
+                        required: false
+                        repeat: false
+                responses: 
+                    "200": 
+                        body: 
+                            "application/json": 
+                                example: |
+                                    {
+                                      "total_count": 24,
+                                      "entries": [
+                                        {
+                                          "type": "folder",
+                                          "id": "192429928",
+                                          "sequence_id": "1",
+                                          "etag": "1",
+                                          "name": "Stephen Curry Three Pointers"
+                                        },
+                                        {
+                                          "type": "file",
+                                          "id": "818853862",
+                                          "sequence_id": "0",
+                                          "etag": "0",
+                                          "name": "Warriors.jpg"
+                                        }
+                                      ],
+                                      "offset": 0,
+                                      "limit": 2,
+                                      "order": [
+                                        {
+                                          "by": "type",
+                                          "direction": "ASC"
+                                        },
+                                        {
+                                          "by": "name",
+                                          "direction": "ASC"
+                                        }
+                                      ]
+                                    }
+        "/copy": 
+            displayName: "Used to create a copy of a folder in another folder. The original version of the folder will not be altered."
+            post: 
+                body: 
+                    "application/json": 
+                        schema: "newFolder"
+                responses: 
+                    "200": 
+                        body: 
+                            "application/json": 
+                                example: |
+                                    {
+                                      "type": "folder",
+                                      "id": "11446498",
+                                      "sequence_id": "1",
+                                      "etag": "1",
+                                      "name": "Pictures",
+                                      "created_at": "2012-12-12T10:53:43-08:00",
+                                      "modified_at": "2012-12-12T11:15:04-08:00",
+                                      "description": "Some pictures I took",
+                                      "size": 629644,
+                                      "path_collection": {
+                                          "total_count": 1,
+                                          "entries": [
+                                              {
+                                                  "type": "folder",
+                                                  "id": "0",
+                                                  "sequence_id": null,
+                                                  "etag": null,
+                                                  "name": "All Files"
+                                              }
+                                          ]
+                                      },
+                                      "created_by": {
+                                          "type": "user",
+                                          "id": "17738362",
+                                          "name": "sean rose",
+                                          "login": "sean@box.com"
+                                      },
+                                      "modified_by": {
+                                          "type": "user",
+                                          "id": "17738362",
+                                          "name": "sean rose",
+                                          "login": "sean@box.com"
+                                      },
+                                      "owned_by": {
+                                          "type": "user",
+                                          "id": "17738362",
+                                          "name": "sean rose",
+                                          "login": "sean@box.com"
+                                      },
+                                      "shared_link": {
+                                          "url": "https://www.box.com/s/vspke7y05sb214wjokpk",
+                                          "download_url": null,
+                                          "vanity_url": null,
+                                          "is_password_enabled": false,
+                                          "unshared_at": null,
+                                          "download_count": 0,
+                                          "preview_count": 0,
+                                          "access": "open",
+                                          "permissions": {
+                                              "can_download": true,
+                                              "can_preview": true
+                                          }
+                                      },
+                                      "folder_upload_email": {
+                                          "access": "open",
+                                          "email": "upload.Picture.k13sdz1@u.box.com"
+                                      },
+                                      "parent": {
+                                          "type": "folder",
+                                          "id": "0",
+                                          "sequence_id": null,
+                                          "etag": null,
+                                          "name": "All Files"
+                                      },
+                                      "item_status": "active",
+                                      "item_collection": {
+                                          "total_count": 1,
+                                          "entries": [
+                                              {
+                                                  "type": "file",
+                                                  "id": "5000948880",
+                                                  "sequence_id": "3",
+                                                  "etag": "3",
+                                                  "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc",
+                                                  "name": "tigers.jpeg"
+                                              }
+                                          ],
+                                          "offset": 0,
+                                          "limit": 100
+                                      }
+                                    }
+        "/collaborations": 
+            displayName: "Use this to get a list of all the collaborations on a folder i.e. all of the users that have access to that folder."
+            get: 
+                queryParameters: 
+                    "fields": 
+                        type: string
+                        required: false
+                        repeat: false
+                responses: 
+                    "200": 
+                        body: 
+                            "application/json": 
+                                example: |
+                                    {
+                                      "total_count": 1,
+                                      "entries": [
+                                          {
+                                              "type": "collaboration",
+                                              "id": "14176246",
+                                              "created_by": {
+                                                  "type": "user",
+                                                  "id": "4276790",
+                                                  "name": "David Lee",
+                                                  "login": "david@box.com"
+                                              },
+                                              "created_at": "2011-11-29T12:56:35-08:00",
+                                              "modified_at": "2012-09-11T15:12:32-07:00",
+                                              "expires_at": null,
+                                              "status": "accepted",
+                                              "accessible_by": {
+                                                  "type": "user",
+                                                  "id": "755492",
+                                                  "name": "Simon Tan",
+                                                  "login": "simon@box.net"
+                                              },
+                                              "role": "editor",
+                                              "acknowledged_at": "2011-11-29T12:59:40-08:00",
+                                              "item": null
+                                          }
+                                      ]
+                                    }
+        "/trash": 
+            displayName: "trash items"
+            delete: 
+                description: "<<Permanently deletes an item that is in the trash. The item will no longer exist in Box. This action cannot be undone. An empty 204 No Content response will be returned upon successful deletion>>"
+            get: 
+                description: "<<Retrieves an item that has been moved to the trash.>>"
+                queryParameters: 
+                    "fields": 
+                        type: string
+                        required: false
+                        repeat: false
+                responses: 
+                    "200": 
+                        body: 
+                            "application/json": 
+                                example: |
+                                    {
+                                      "type": "folder",
+                                      "id": "588970022",
+                                      "sequence_id": "1",
+                                      "etag": "1",
+                                      "name": "heloo world",
+                                      "created_at": "2013-01-15T16:15:27-08:00",
+                                      "modified_at": "2013-01-17T13:48:23-08:00",
+                                      "description": "",
+                                      "size": 0,
+                                      "path_collection": {
+                                          "total_count": 1,
+                                          "entries": [
+                                              {
+                                                  "type": "folder",
+                                                  "id": "1",
+                                                  "sequence_id": null,
+                                                  "etag": null,
+                                                  "name": "Trash"
+                                              }
+                                          ]
+                                      },
+                                      "created_by": {
+                                          "type": "user",
+                                          "id": "181757341",
+                                          "name": "sean test",
+                                          "login": "sean+test@box.com"
+                                      },
+                                      "modified_by": {
+                                          "type": "user",
+                                          "id": "181757341",
+                                          "name": "sean test",
+                                          "login": "sean+test@box.com"
+                                      },
+                                      "trashed_at": "2013-02-07T12:53:32-08:00",
+                                      "purged_at": "2013-03-09T12:53:32-08:00",
+                                      "content_created_at": "2013-01-15T16:15:27-08:00",
+                                      "content_modified_at": "2013-01-17T13:48:23-08:00",
+                                      "owned_by": {
+                                          "type": "user",
+                                          "id": "181757341",
+                                          "name": "sean test",
+                                          "login": "sean+test@box.com"
+                                      },
+                                      "shared_link": null,
+                                      "folder_upload_email": null,
+                                      "parent": {
+                                          "type": "folder",
+                                          "id": "0",
+                                          "sequence_id": null,
+                                          "etag": null,
+                                          "name": "All Files"
+                                      },
+                                      "item_status": "trashed"
+                                    }
+    "/trash/items": 
+        displayName: "trash items"
+        get: 
+            description: "<<Retrieves the files and/or folders that have been moved to the trash. Any attribute in the full files or folders objects can be passed in with the fields parameter to get specific attributes, and only those specific attributes back; otherwise, the mini format is returned for each item by default. Multiple attributes can be passed in separated by commas e.g. fields=name,created_at. Paginated results can be retrieved using the limit and offset parameters.>>"
+            queryParameters: 
+                "fields": 
+                    type: string
+                    required: false
+                    repeat: false
+                "limt": 
+                    type: string
+                    required: false
+                    repeat: false
+                "offset": 
+                    type: string
+                    required: false
+                    repeat: false
+            responses: 
+                "200": 
+                    body: 
+                        "application/json": 
+                            example: |
+                                {
+                                  "total_count": 49542,
+                                  "entries": [
+                                      {
+                                          "type": "file",
+                                          "id": "2701979016",
+                                          "sequence_id": "1",
+                                          "etag": "1",
+                                          "sha1": "9d976863fc849f6061ecf9736710bd9c2bce488c",
+                                          "name": "file Tue Jul 24 145436 2012KWPX5S.csv"
+                                      },
+                                      {
+                                          "type": "file",
+                                          "id": "2698211586",
+                                          "sequence_id": "1",
+                                          "etag": "1",
+                                          "sha1": "09b0e2e9760caf7448c702db34ea001f356f1197",
+                                          "name": "file Tue Jul 24 010055 20129Z6GS3.csv"
+                                      }
+                                  ],
+                                  "offset": 0,
+                                  "limit": 2
+                                }
+"/files": 
+    description: "File objects represent that metadata about individual files in Box, with attributes describing who created the file, when it was last modified, and other information. The actual content of the file itself is accessible through the /files/{id}/content endpoint"
+    "/{id}": 
+        uriParameters: 
+            "id": 
+                displayName: "id"
+                type: string
+                required: true
+                repeat: false
+        get: 
+            description: "<<A full file object is returned if the ID is valid and if the user has access to the file.>"
+            responses: 
+                "200": 
+                    body: 
+                        "application/json": 
+                            example: |
+                                {
+                                  "type": "file",
+                                  "id": "5000948880",
+                                  "sequence_id": "3",
+                                  "etag": "3",
+                                  "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc",
+                                  "name": "tigers.jpeg",
+                                  "description": "a picture of tigers",
+                                  "size": 629644,
+                                  "path_collection": {
+                                      "total_count": 2,
+                                      "entries": [
+                                          {
+                                              "type": "folder",
+                                              "id": "0",
+                                              "sequence_id": null,
+                                              "etag": null,
+                                              "name": "All Files"
+                                          },
+                                          {
+                                              "type": "folder",
+                                              "id": "11446498",
+                                              "sequence_id": "1",
+                                              "etag": "1",
+                                              "name": "Pictures"
+                                          }
+                                      ]
+                                  },
+                                  "created_at": "2012-12-12T10:55:30-08:00",
+                                  "modified_at": "2012-12-12T11:04:26-08:00",
+                                  "created_by": {
+                                      "type": "user",
+                                      "id": "17738362",
+                                      "name": "sean rose",
+                                      "login": "sean@box.com"
+                                  },
+                                  "modified_by": {
+                                      "type": "user",
+                                      "id": "17738362",
+                                      "name": "sean rose",
+                                      "login": "sean@box.com"
+                                  },
+                                  "owned_by": {
+                                      "type": "user",
+                                      "id": "17738362",
+                                      "name": "sean rose",
+                                      "login": "sean@box.com"
+                                  },
+                                  "shared_link": {
+                                      "url": "https://www.box.com/s/rh935iit6ewrmw0unyul",
+                                      "download_url": "https://www.box.com/shared/static/rh935iit6ewrmw0unyul.jpeg",
+                                      "vanity_url": null,
+                                      "is_password_enabled": false,
+                                      "unshared_at": null,
+                                      "download_count": 0,
+                                      "preview_count": 0,
+                                      "access": "open",
+                                      "permissions": {
+                                          "can_download": true,
+                                          "can_preview": true
+                                      }
+                                  },
+                                  "parent": {
+                                      "type": "folder",
+                                      "id": "11446498",
+                                      "sequence_id": "1",
+                                      "etag": "1",
+                                      "name": "Pictures"
+                                  },
+                                  "item_status": "active"
+                                }
+        post: 
+            description: "<<Restores an item that has been moved to the trash. Default behavior is to restore the item to the folder it was in before it was moved to the trash. If that parent folder no longer exists or if there is now an item with the same name in that parent folder, the new parent folder and/or new name will need to be included in the request.>>"
+            body: 
+                "application/json": 
+                    schema: "newFile"
+            responses: 
+                "200": 
+                    body: 
+                        "application/json": 
+                            example: |
+                                {
+                                  "type": "file",
+                                  "id": "5859258256",
+                                  "sequence_id": "3",
+                                  "etag": "3",
+                                  "sha1": "4bd9e98652799fc57cf9423e13629c151152ce6c",
+                                  "name": "Screenshot_1_30_13_6_37_PM.png",
+                                  "description": "",
+                                  "size": 163265,
+                                  "path_collection": {
+                                      "total_count": 1,
+                                      "entries": [
+                                          {
+                                              "type": "folder",
+                                              "id": "0",
+                                              "sequence_id": null,
+                                              "etag": null,
+                                              "name": "All Files"
+                                          }
+                                      ]
+                                  },
+                                  "created_at": "2013-01-30T18:43:56-08:00",
+                                  "modified_at": "2013-02-07T10:56:58-08:00",
+                                  "trashed_at": null,
+                                  "purged_at": null,
+                                  "content_created_at": "2013-01-30T18:43:56-08:00",
+                                  "content_modified_at": "2013-02-07T10:56:58-08:00",
+                                  "created_by": {
+                                      "type": "user",
+                                      "id": "181757341",
+                                      "name": "sean test",
+                                      "login": "sean+test@box.com"
+                                  },
+                                  "modified_by": {
+                                      "type": "user",
+                                      "id": "181757341",
+                                      "name": "sean test",
+                                      "login": "sean+test@box.com"
+                                  },
+                                  "owned_by": {
+                                      "type": "user",
+                                      "id": "181757341",
+                                      "name": "sean test",
+                                      "login": "sean+test@box.com"
+                                  },
+                                  "shared_link": {
+                                      "url": "https://seanrose.box.com/s/ebgti08mtmhbpb4vlp55",
+                                      "download_url": "https://seanrose.box.com/shared/static/ebgti08mtmhbpb4vlp55.png",
+                                      "vanity_url": null,
+                                      "is_password_enabled": false,
+                                      "unshared_at": null,
+                                      "download_count": 0,
+                                      "preview_count": 4,
+                                      "access": "open",
+                                      "permissions": {
+                                          "can_download": true,
+                                          "can_preview": true
+                                      }
+                                  },
+                                  "parent": {
+                                      "type": "folder",
+                                      "id": "0",
+                                      "sequence_id": null,
+                                      "etag": null,
+                                      "name": "All Files"
+                                  },
+                                  "item_status": "active"
+                                }
+        put: 
+            description: "<<Used to update individual or multiple fields in the file object, including renaming the file, changing it’s description, and creating a shared link for the file. To move a file, change the ID of its parent folder. An optional If-Match header can be included to ensure that Box only accepts the upload if the sha1 checksum matches what is sent in the header.>>"
+            headers: 
+                "If-Match": 
+                    type: string
+                    required: false
+                    repeat: false
+            body: 
+                "application/json": 
+                    schema: "updateFile,lock"
+            responses: 
+                "200": 
+                    body: 
+                        "application/json": 
+                            example: |
+                                {
+                                  "type": "file",
+                                  "id": "5000948880",
+                                  "sequence_id": "3",
+                                  "etag": "3",
+                                  "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc",
+                                  "name": "new name.jpg",
+                                  "description": "a picture of tigers",
+                                  "size": 629644,
+                                  "path_collection": {
+                                      "total_count": 2,
+                                      "entries": [
+                                          {
+                                              "type": "folder",
+                                              "id": "0",
+                                              "sequence_id": null,
+                                              "etag": null,
+                                              "name": "All Files"
+                                          },
+                                          {
+                                              "type": "folder",
+                                              "id": "11446498",
+                                              "sequence_id": "1",
+                                              "etag": "1",
+                                              "name": "Pictures"
+                                          }
+                                      ]
+                                  },
+                                  "created_at": "2012-12-12T10:55:30-08:00",
+                                  "modified_at": "2012-12-12T11:04:26-08:00",
+                                  "created_by": {
+                                      "type": "user",
+                                      "id": "17738362",
+                                      "name": "sean rose",
+                                      "login": "sean@box.com"
+                                  },
+                                  "modified_by": {
+                                      "type": "user",
+                                      "id": "17738362",
+                                      "name": "sean rose",
+                                      "login": "sean@box.com"
+                                  },
+                                  "owned_by": {
+                                      "type": "user",
+                                      "id": "17738362",
+                                      "name": "sean rose",
+                                      "login": "sean@box.com"
+                                  },
+                                  "shared_link": {
+                                      "url": "https://www.box.com/s/rh935iit6ewrmw0unyul",
+                                      "download_url": "https://www.box.com/shared/static/rh935iit6ewrmw0unyul.jpeg",
+                                      "vanity_url": null,
+                                      "is_password_enabled": false,
+                                      "unshared_at": null,
+                                      "download_count": 0,
+                                      "preview_count": 0,
+                                      "access": "open",
+                                      "permissions": {
+                                          "can_download": true,
+                                          "can_preview": true
+                                      }
+                                  },
+                                  "parent": {
+                                      "type": "folder",
+                                      "id": "11446498",
+                                      "sequence_id": "1",
+                                      "etag": "1",
+                                      "name": "Pictures"
+                                  },
+                                  "item_status": "active"
+                                }
+        delete: 
+            description: "<<Discards a file to the trash. The etag of the file can be included as an ‘If-Match’ header to prevent race conditions>>"
+            headers: 
+                "If-Match": 
+                    type: string
+                    required: false
+                    repeat: false
+        "/content": 
+            get: 
+                description: "<<Retrieves the actual data of the file. An optional version parameter can be set to download a previous version of the file. If the file is available to be downloaded, the response will be a 302 Found to a URL at dl.boxcloud.com. The dl.boxcloud.com URL is not persistent. Clients will need to follow the redirect in order to actually download the file. The raw data of the file is returned unless the file ID is invalid or the user does not have access to it. If the file is not ready to be downloaded (i.e. in the case where the file was uploaded immediately before the download request), a response with an HTTP status of 202 Accepted will be returned with a Retry-After header indicating the time in seconds after which the file will be available for the client to download>>"
+                queryParameters: 
+                    "version": 
+                        type: string
+                        required: false
+                        repeat: false
+                responses: 
+                    "302": 
+        "/versions": 
+            get: 
+                description: "<<If there are previous versions of this file, this method can be used to retrieve metadata about the older versions.>>"
+                queryParameters: 
+                    "fields": 
+                        type: string
+                        required: false
+                        repeat: false
+                responses: 
+                    "200": 
+                        body: 
+                            "application/json": 
+                                example: |
+                                    {
+                                      "total_count": 1,
+                                      "entries": [
+                                          {
+                                              "type": "file_version",
+                                              "id": "672259576",
+                                              "sha1": "359c6c1ed98081b9a69eb3513b9deced59c957f9",
+                                              "name": "Dragons.js",
+                                              "size": 92556,
+                                              "created_at": "2012-08-20T10:20:30-07:00",
+                                              "modified_at": "2012-11-28T13:14:58-08:00",
+                                              "modified_by": {
+                                                  "type": "user",
+                                                  "id": "183732129",
+                                                  "name": "sean rose",
+                                                  "login": "sean+apitest@box.com"
+                                              }
+                                          }
+                                      ]
+                                    }
+            "/current": 
+                post: 
+                    description: "<<f there are previous versions of this file, this method can be used to promote one of the older versions to the top of the stack. This actually mints a copy of the old version and puts it on the top of the versions stack. The file will have the exact same contents, the same SHA1/etag, and the same name as the original. Other properties such as comments do not get updated to their former values.>>"
+                    body: 
+                        "application/x-www-form-urlencoded": 
+                            formParameters: 
+                                "type": 
+                                    type: string
+                                    required: false
+                                    repeat: false
+                                "id": 
+                                    type: string
+                                    required: false
+                                    repeat: false
+                    responses: 
+                        "200": 
+                            body: 
+                                "application/json": 
+                                    example: |
+                                        {
+                                          "type": "file_version",
+                                          "id": "871399",
+                                          "sha1": "12039d6dd9a7e6eefc78846802e",
+                                          "name": "Stark Family Lineage.doc",
+                                          "size": 11,
+                                          "created_at": "2013-11-20T13:20:50-08:00",
+                                          "modified_at": "2013-11-20T13:26:48-08:00",
+                                          "modified_by": {
+                                              "type": "user",
+                                              "id": "13711334",
+                                              "name": "Eddard Stark",
+                                              "login": "ned@winterfell.com"
+                                          }
+                                        }
+            "/{version_id}": 
+                uriParameters: 
+                    "version_id": 
+                        displayName: "version_id"
+                        type: string
+                        required: true
+                        repeat: false
+                delete: 
+                    description: "<<Discards a specific file version to the trash>>"
+                    headers: 
+                        "If-Match": 
+                            type: string
+                            required: false
+                            repeat: false
+        "/{thumbnail_file_name}": 
+            uriParameters: 
+                "thumbnail_file_name": 
+                    displayName: "thumbnail_file_name"
+                    type: string
+                    required: true
+                    repeat: false
+            get: 
+                description: "<<Retrieves a thumbnail, or smaller image representation, of this file. Sizes of 32x32, 64x64, 128x128, and 256x256 can be returned. Currently thumbnails are only available in .png format and will only be generated for image file formats.>>"
+                queryParameters: 
+                    "min_height": 
+                        type: string
+                        required: false
+                        repeat: false
+                    "min_width": 
+                        type: string
+                        required: false
+                        repeat: false
+                    "max_height": 
+                        type: string
+                        required: false
+                        repeat: false
+                    "max_width": 
+                        type: string
+                        required: false
+                        repeat: false
+                responses: 
+                    "200": 
+        "/copy": 
+            post: 
+                description: "<<Used to create a copy of a file in another folder. The original version of the file will not be altered.>>"
+                body: 
+                    "application/json": 
+                        schema: "newFolder"
+                responses: 
+                    "200": 
+                        body: 
+                            "application/json": 
+                                example: |
+                                    {
+                                      "type": "file",
+                                      "id": "5000948880",
+                                      "sequence_id": "3",
+                                      "etag": "3",
+                                      "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc",
+                                      "name": "tigers.jpeg",
+                                      "description": "a picture of tigers",
+                                      "size": 629644,
+                                      "path_collection": {
+                                          "total_count": 2,
+                                          "entries": [
+                                              {
+                                                  "type": "folder",
+                                                  "id": "0",
+                                                  "sequence_id": null,
+                                                  "etag": null,
+                                                  "name": "All Files"
+                                              },
+                                              {
+                                                  "type": "folder",
+                                                  "id": "11446498",
+                                                  "sequence_id": "1",
+                                                  "etag": "1",
+                                                  "name": "Pictures"
+                                              }
+                                          ]
+                                      },
+                                      "created_at": "2012-12-12T10:55:30-08:00",
+                                      "modified_at": "2012-12-12T11:04:26-08:00",
+                                      "created_by": {
+                                          "type": "user",
+                                          "id": "17738362",
+                                          "name": "sean rose",
+                                          "login": "sean@box.com"
+                                      },
+                                      "modified_by": {
+                                          "type": "user",
+                                          "id": "17738362",
+                                          "name": "sean rose",
+                                          "login": "sean@box.com"
+                                      },
+                                      "owned_by": {
+                                          "type": "user",
+                                          "id": "17738362",
+                                          "name": "sean rose",
+                                          "login": "sean@box.com"
+                                      },
+                                      "shared_link": {
+                                          "url": "https://www.box.com/s/rh935iit6ewrmw0unyul",
+                                          "download_url": "https://www.box.com/shared/static/rh935iit6ewrmw0unyul.jpeg",
+                                          "vanity_url": null,
+                                          "is_password_enabled": false,
+                                          "unshared_at": null,
+                                          "download_count": 0,
+                                          "preview_count": 0,
+                                          "access": "open",
+                                          "permissions": {
+                                              "can_download": true,
+                                              "can_preview": true
+                                          }
+                                      },
+                                      "parent": {
+                                          "type": "folder",
+                                          "id": "11446498",
+                                          "sequence_id": "1",
+                                          "etag": "1",
+                                          "name": "Pictures"
+                                      },
+                                      "item_status": "active"
+                                    }
+        "/trash": 
+            get: 
+                description: "<<Retrieves an item that has been moved to the trash.>>"
+                responses: 
+                    "200": 
+                        body: 
+                            "application/json": 
+                                example: |
+                                    {
+                                      "type": "file",
+                                      "id": "5859258256",
+                                      "sequence_id": "2",
+                                      "etag": "2",
+                                      "sha1": "4bd9e98652799fc57cf9423e13629c151152ce6c",
+                                      "name": "Screenshot_1_30_13_6_37_PM.png",
+                                      "description": "",
+                                      "size": 163265,
+                                      "path_collection": {
+                                          "total_count": 1,
+                                          "entries": [
+                                              {
+                                                  "type": "folder",
+                                                  "id": "1",
+                                                  "sequence_id": null,
+                                                  "etag": null,
+                                                  "name": "Trash"
+                                              }
+                                          ]
+                                      },
+                                      "created_at": "2013-01-30T18:43:56-08:00",
+                                      "modified_at": "2013-01-30T18:44:00-08:00",
+                                      "trashed_at": "2013-02-07T10:49:34-08:00",
+                                      "purged_at": "2013-03-09T10:49:34-08:00",
+                                      "content_created_at": "2013-01-30T18:43:56-08:00",
+                                      "content_modified_at": "2013-01-30T18:44:00-08:00",
+                                      "created_by": {
+                                          "type": "user",
+                                          "id": "181757341",
+                                          "name": "sean test",
+                                          "login": "sean+test@box.com"
+                                      },
+                                      "modified_by": {
+                                          "type": "user",
+                                          "id": "181757341",
+                                          "name": "sean test",
+                                          "login": "sean+test@box.com"
+                                      },
+                                      "owned_by": {
+                                          "type": "user",
+                                          "id": "181757341",
+                                          "name": "sean test",
+                                          "login": "sean+test@box.com"
+                                      },
+                                      "shared_link": {
+                                          "url": null,
+                                          "download_url": null,
+                                          "vanity_url": null,
+                                          "is_password_enabled": false,
+                                          "unshared_at": null,
+                                          "download_count": 0,
+                                          "preview_count": 0,
+                                          "access": "open",
+                                          "permissions": {
+                                              "can_download": true,
+                                              "can_preview": true
+                                          }
+                                      },
+                                      "parent": {
+                                          "type": "folder",
+                                          "id": "0",
+                                          "sequence_id": null,
+                                          "etag": null,
+                                          "name": "All Files"
+                                      },
+                                      "item_status": "trashed"
+                                    }
+            delete: 
+                description: "<<Permanently deletes an item that is in the trash. The item will no longer exist in Box. This action cannot be undone.>>"
+        "/comments": 
+            get: 
+                description: "<<Retrieves the comments on a particular file, if any exist.>>"
+                queryParameters: 
+                    "fields": 
+                        type: string
+                        required: false
+                        repeat: false
+                responses: 
+                    "200": 
+                        body: 
+                            "application/json": 
+                                example: |
+                                    {
+                                      "total_count": 1,
+                                      "entries": [
+                                          {
+                                              "type": "comment",
+                                              "id": "191969",
+                                              "is_reply_comment": false,
+                                              "message": "These tigers are cool!",
+                                              "created_by": {
+                                                  "type": "user",
+                                                  "id": "17738362",
+                                                  "name": "sean rose",
+                                                  "login": "sean@box.com"
+                                              },
+                                              "created_at": "2012-12-12T11:25:01-08:00",
+                                              "item": {
+                                                  "id": "5000948880",
+                                                  "type": "file"
+                                              },
+                                              "modified_at": "2012-12-12T11:25:01-08:00"
+                                          }
+                                      ]
+                                    }
+        "/tasks": 
+            get: 
+                description: "<<Retrieves the comments on a particular file, if any exist.>>"
+                queryParameters: 
+                    "fields": 
+                        type: string
+                        required: false
+                        repeat: false
+                responses: 
+                    "200": 
+                        body: 
+                            "application/json": 
+                                example: |
+                                    {
+                                      "total_count": 1,
+                                      "entries": [
+                                          {
+                                              "type": "task",
+                                              "id": "1786931",
+                                              "item": {
+                                                  "type": "file",
+                                                  "id": "7026335894",
+                                                  "sequence_id": "6",
+                                                  "etag": "6",
+                                                  "sha1": "81cc829fb8366fcfc108aa6c5a9bde01a6a10c16",
+                                                  "name": "API - Persist On-Behalf-Of information.docx"
+                                              },
+                                              "due_at": null
+                                          }
+                                      ]
+                                    }
+    "/content": 
+        description: "Use the Uploads API to allow users to add a new file. The user can then upload a file by specifying the destination folder for the file. If the user provides a file name that already exists in the destination folder, the user will receive an error. A different Box URL, https://upload.box.com/api/2.0/files/content, handles uploads. This API uses the multipart post method to complete all upload tasks. You can optionally specify a Content-MD5 header with the SHA1 hash of the file to ensure that the file is not corrupted in transit."
+        post: 
+            description: "<<insert text or markdown here>>"
+            headers: 
+                "Content-MD5": 
+                    type: string
+                    required: false
+                    repeat: false
+            body: 
+                "application/json": 
+                    schema: "uploadFile"
+            responses: 
+                "200": 
+                    body: 
+                        "application/json": 
+                            example: |
+                                {
+                                  "total_count": 1,
+                                  "entries": [
+                                      {
+                                          "type": "file",
+                                          "id": "5000948880",
+                                          "sequence_id": "3",
+                                          "etag": "3",
+                                          "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc",
+                                          "name": "tigers.jpeg",
+                                          "description": "a picture of tigers",
+                                          "size": 629644,
+                                          "path_collection": {
+                                              "total_count": 2,
+                                              "entries": [
+                                                  {
+                                                      "type": "folder",
+                                                      "id": "0",
+                                                      "sequence_id": null,
+                                                      "etag": null,
+                                                      "name": "All Files"
+                                                  },
+                                                  {
+                                                      "type": "folder",
+                                                      "id": "11446498",
+                                                      "sequence_id": "1",
+                                                      "etag": "1",
+                                                      "name": "Pictures"
+                                                  }
+                                              ]
+                                          },
+                                          "created_at": "2012-12-12T10:55:30-08:00",
+                                          "modified_at": "2012-12-12T11:04:26-08:00",
+                                          "trashed_at": null,
+                                          "purged_at": null,
+                                          "content_created_at": "2013-02-04T16:57:52-08:00",
+                                          "content_modified_at": "2013-02-04T16:57:52-08:00",
+                                          "created_by": {
+                                              "type": "user",
+                                              "id": "17738362",
+                                              "name": "sean rose",
+                                              "login": "sean@box.com"
+                                          },
+                                          "modified_by": {
+                                              "type": "user",
+                                              "id": "17738362",
+                                              "name": "sean rose",
+                                              "login": "sean@box.com"
+                                          },
+                                          "owned_by": {
+                                              "type": "user",
+                                              "id": "17738362",
+                                              "name": "sean rose",
+                                              "login": "sean@box.com"
+                                          },
+                                          "shared_link": null,
+                                          "parent": {
+                                              "type": "folder",
+                                              "id": "11446498",
+                                              "sequence_id": "1",
+                                              "etag": "1",
+                                              "name": "Pictures"
+                                          },
+                                          "item_status": "active"
+                                      }
+                                  ]
+                                }
+"/comments": 
+    description: "Comments are messages generated by Box users. Each message is tied to a specific file. You can create comments independently or create them as responses to other comments."
+    post: 
+        description: "<<Used to add a comment by the user to a specific file or comment (i.e. as a reply comment).>>"
+        body: 
+            "application/json": 
+                schema: "newComment"
+        responses: 
+            "200": 
+                body: 
+                    "application/json": 
+                        example: |
+                            {
+                              "type": "comment",
+                              "id": "191969",
+                              "is_reply_comment": false,
+                              "message": "These tigers are cool!",
+                              "created_by": {
+                                  "type": "user",
+                                  "id": "17738362",
+                                  "name": "sean rose",
+                                  "login": "sean@box.com"
+                              },
+                              "created_at": "2012-12-12T11:25:01-08:00",
+                              "item": {
+                                  "id": "5000948880",
+                                  "type": "file"
+                              },
+                              "modified_at": "2012-12-12T11:25:01-08:00"
+                            }
+    "/{comment_id}": 
+        uriParameters: 
+            "comment_id": 
+                displayName: "comment_id"
+                type: string
+                required: true
+                repeat: false
+        put: 
+            description: "<<insert text or markdown here>>"
+            body: 
+                "application/x-www-form-urlencoded": 
+                    formParameters: 
+                        "message": 
+                            type: string
+                            required: false
+                            repeat: false
+            responses: 
+                "200": 
+                    body: 
+                        "application/json": 
+                            example: |
+                                {
+                                  "type": "comment",
+                                  "id": "191969",
+                                  "is_reply_comment": false,
+                                  "message": "These tigers are cool!",
+                                  "created_by": {
+                                      "type": "user",
+                                      "id": "17738362",
+                                      "name": "sean rose",
+                                      "login": "sean@box.com"
+                                  },
+                                  "created_at": "2012-12-12T11:25:01-08:00",
+                                  "item": {
+                                      "id": "5000948880",
+                                      "type": "file"
+                                  },
+                                  "modified_at": "2012-12-12T11:25:01-08:00"
+                                }
+        get: 
+            description: "<<Used to retrieve the message and metadata about a specific comment. Information about the user who created the comment is also included.>>"
+            responses: 
+                "200": 
+                    body: 
+                        "application/json": 
+                            example: |
+                                {
+                                  "type": "comment",
+                                  "id": "191969",
+                                  "is_reply_comment": false,
+                                  "message": "These tigers are cool!",
+                                  "created_by": {
+                                      "type": "user",
+                                      "id": "17738362",
+                                      "name": "sean rose",
+                                      "login": "sean@box.com"
+                                  },
+                                  "created_at": "2012-12-12T11:25:01-08:00",
+                                  "item": {
+                                      "id": "5000948880",
+                                      "type": "file"
+                                  },
+                                  "modified_at": "2012-12-12T11:25:01-08:00"
+                                }
+        delete: 
+            description: "<<Permanently deletes a comment.>>"
+"/collaborations": 
+    description: "Collaborations are Box’s equivalent of access control lists. They can be used to set and apply permissions for users or groups to folders."
+    post: 
+        description: "<<Used to add a collaboration for a single user or a single group to a folder. Descriptions of the various roles can be found here. Either an email address, a user ID, or a group id can be used to create the collaboration.>>"
+        queryParameters: 
+            "fields": 
+                type: string
+                required: false
+                repeat: false
+            "notify": 
+                type: string
+                required: false
+                repeat: false
+        body: 
+            "application/json": 
+                schema: "newCollab"
+        responses: 
+            "200": 
+                body: 
+                    "application/json": 
+                        example: |
+                            {
+                              "type": "collaboration",
+                              "id": "791293",
+                              "created_by": {
+                                  "type": "user",
+                                  "id": "17738362",
+                                  "name": "sean rose",
+                                  "login": "sean@box.com"
+                              },
+                              "created_at": "2012-12-12T10:54:37-08:00",
+                              "modified_at": "2012-12-12T11:30:43-08:00",
+                              "expires_at": null,
+                              "status": "accepted",
+                              "accessible_by": {
+                                  "type": "user",
+                                  "id": "18203124",
+                                  "name": "sean",
+                                  "login": "sean+test@box.com"
+                              },
+                              "role": "editor",
+                              "acknowledged_at": "2012-12-12T11:30:43-08:00",
+                              "item": {
+                                  "type": "folder",
+                                  "id": "11446500",
+                                  "sequence_id": "0",
+                                  "etag": "0",
+                                  "name": "Shared Pictures"
+                              }
+                            }
+    "/{id}": 
+        uriParameters: 
+            "id": 
+                displayName: "id"
+                type: string
+                required: true
+                repeat: false
+        put: 
+            description: "<<Used to edit an existing collaboration.>>"
+            body: 
+                "application/x-www-form-urlencoded": 
+                    formParameters: 
+                        "role": 
+                            type: string
+                            required: false
+                            repeat: false
+                        "status": 
+                            type: string
+                            required: false
+                            repeat: false
+            responses: 
+                "200": 
+                    body: 
+                        "application/json": 
+                            example: |
+                                {
+                                  "type": "collaboration",
+                                  "id": "791293",
+                                  "created_by": {
+                                      "type": "user",
+                                      "id": "17738362",
+                                      "name": "sean rose",
+                                      "login": "sean@box.com"
+                                  },
+                                  "created_at": "2012-12-12T10:54:37-08:00",
+                                  "modified_at": "2012-12-12T11:30:43-08:00",
+                                  "expires_at": null,
+                                  "status": "accepted",
+                                  "accessible_by": {
+                                      "type": "user",
+                                      "id": "18203124",
+                                      "name": "sean",
+                                      "login": "sean+test@box.com"
+                                  },
+                                  "role": "viewer",
+                                  "acknowledged_at": "2012-12-12T11:30:43-08:00",
+                                  "item": {
+                                      "type": "folder",
+                                      "id": "11446500",
+                                      "sequence_id": "0",
+                                      "etag": "0",
+                                      "name": "Shared Pictures"
+                                  }
+                                }
+        delete: 
+            description: "<<Used to delete a single collaboration.>>"
+        get: 
+            description: "<<Used to get information about a single collaboration. All collaborations for a single folder can be retrieved through GET /folders/{id}/collaborations. A complete list of the user’s pending collaborations can also be retrieved.>>"
+            queryParameters: 
+                "fields": 
+                    type: string
+                    required: false
+                    repeat: false
+                "status": 
+                    type: string
+                    required: false
+                    repeat: false
+            responses: 
+                "200": 
+                    body: 
+                        "application/json": 
+                            example: |
+                                {
+                                  "type": "collaboration",
+                                  "id": "791293",
+                                  "created_by": {
+                                      "type": "user",
+                                      "id": "17738362",
+                                      "name": "sean rose",
+                                      "login": "sean@box.com"
+                                  },
+                                  "created_at": "2012-12-12T10:54:37-08:00",
+                                  "modified_at": "2012-12-12T11:30:43-08:00",
+                                  "expires_at": null,
+                                  "status": "accepted",
+                                  "accessible_by": {
+                                      "type": "user",
+                                      "id": "18203124",
+                                      "name": "sean",
+                                      "login": "sean+test@box.com"
+                                  },
+                                  "role": "editor",
+                                  "acknowledged_at": "2012-12-12T11:30:43-08:00",
+                                  "item": {
+                                      "type": "folder",
+                                      "id": "11446500",
+                                      "sequence_id": "0",
+                                      "etag": "0",
+                                      "name": "Shared Pictures"
+                                  }
+                                }
+"/events": 
+    description: "Used to populate our admin reports, as well as power application-side messaging for our sync client. When something changes in a user’s Box account, either in folders they own or folders they collaborate on, Box logs an ‘event’ for the user. Box’s /events endpoint supports 2 fundamentally different things - Admin Events and User Events."
+    get: 
+        description: "<<Use this to get events for a given user. A chunk of event objects is returned for the user based on the parameters passed in. Parameters indicating how many chunks are left as well as the next stream_position are also returned.>>"
+        queryParameters: 
+            "stream_position": 
+                type: string
+                required: false
+                repeat: false
+            "stream_type": 
+                type: string
+                required: false
+                repeat: false
+            "limit": 
+                type: string
+                required: false
+                repeat: false
+        responses: 
+            "200": 
+                body: 
+                    "application/json": 
+                        example: |
+                            {
+                              "chunk_size": 1,
+                              "next_stream_position": 1348790499819,
+                              "entries": [
+                                  {
+                              "type": "event",
+                              "event_id": "f82c3ba03e41f7e8a7608363cc6c0390183c3f83",
+                              "created_by": {
+                                  "type": "user",
+                                  "id": "17738362",
+                                  "name": "sean rose",
+                                  "login": "sean@box.com"
+                              },
+                              "created_at": "2012-12-12T10:53:43-08:00",
+                              "recorded_at": "2012-12-12T10:53:48-08:00",
+                              "event_type": "ITEM_CREATE",
+                              "session_id": "70090280850c8d2a1933c1",
+                              "source": {
+                                  "type": "folder",
+                                  "id": "11446498",
+                                  "sequence_id": "0",
+                                  "etag": "0",
+                                  "name": "Pictures",
+                                  "created_at": "2012-12-12T10:53:43-08:00",
+                                  "modified_at": "2012-12-12T10:53:43-08:00",
+                                  "description": null,
+                                  "size": 0,
+                                  "created_by": {
+                                      "type": "user",
+                                      "id": "17738362",
+                                      "name": "sean rose",
+                                      "login": "sean@box.com"
+                                  },
+                                  "modified_by": {
+                                      "type": "user",
+                                      "id": "17738362",
+                                      "name": "sean rose",
+                                      "login": "sean@box.com"
+                                  },
+                                  "owned_by": {
+                                      "type": "user",
+                                      "id": "17738362",
+                                      "name": "sean rose",
+                                      "login": "sean@box.com"
+                                  },
+                                  "shared_link": null,
+                                  "parent": {
+                                      "type": "folder",
+                                      "id": "0",
+                                      "sequence_id": null,
+                                      "etag": null,
+                                      "name": "All Files"
+                                  },
+                                  "item_status": "active",
+                                  "synced": false
+                                  }
+                                }
+                              ]
+                            }
+    options: 
+        description: "<<To get real-time notification of activity in a Box account, use the long poll feature of the /events API. To do so, first call the /events API with an OPTIONS call to retrieve the long poll URL to use. Next, make a GET request to the provided URL to begin listening for events. If an event occurs within an account you are monitoring, you will receive a response with the value new_change. It’s important to note that this response will not come with any other details, but should serve as a prompt to take further action such as calling the /events endpoint with your last known stream_position. After sending this response, the server will close the connection and you will need to repeat the long poll process to begin listening for events again. If no events occur for a period of time after you make the GET request to the long poll URL, you will receive a response with the value reconnect. When you receive this response, you’ll make another OPTIONS call to the /events endpoint and repeat the long poll process. If you receive no events in retry_timeout seconds, you should make another GET request to the real time server (i.e. URL in the response). This might be necessary in case you do not receive the reconnect message in the face of network errors. If you receive max_retries error when making GET requests to the real time server, you should make another OPTIONS request.>>"
+        responses: 
+            "200": 
+                body: 
+                    "application/json": 
+                        example: |
+                            {
+                              "chunk_size":1,
+                              "entries":[
+                                  {
+                                      "type":"realtime_server",
+                                      "url":"http:\/\/2.realtime.services.box.net\/subscribe?channel=cc807c9c4869ffb1c81a&stream_type=all",
+                                      "ttl":"10",
+                                      "max_retries":"10",
+                                      "retry_timeout":610
+                                  }
+                              ]
+                            }
+"/shared_items": 
+    get: 
+        description: "<<Used to retrieve the metadata about a shared item when only given a shared link. Because of varying permission levels for shared links, a password may be required to retrieve the shared item. Once the item has been retrieved, you can make API requests against the actual resource (/files/{id} or /folders/{id} as long as the shared link and optional password are in the header.>>"
+        headers: 
+            "BoxApi": 
+                type: string
+                required: false
+                repeat: false
+        body: 
+            "application/json": 
+                schema: "newCollab"
+        responses: 
+            "200": 
+                body: 
+                    "application/json": 
+                        example: |
+                            {
+                              "type": "folder",
+                              "id": "11446498",
+                              "sequence_id": "1",
+                              "etag": "1",
+                              "name": "Pictures",
+                              "created_at": "2012-12-12T10:53:43-08:00",
+                              "modified_at": "2012-12-12T11:15:04-08:00",
+                              "description": "Some pictures I took",
+                              "size": 629644,
+                              "path_collection": {
+                                  "total_count": 1,
+                                  "entries": [
+                                      {
+                                          "type": "folder",
+                                          "id": "0",
+                                          "sequence_id": null,
+                                          "etag": null,
+                                          "name": "All Files"
+                                      }
+                                  ]
+                              },
+                              "created_by": {
+                                  "type": "user",
+                                  "id": "17738362",
+                                  "name": "sean rose",
+                                  "login": "sean@box.com"
+                              },
+                              "modified_by": {
+                                  "type": "user",
+                                  "id": "17738362",
+                                  "name": "sean rose",
+                                  "login": "sean@box.com"
+                              },
+                              "owned_by": {
+                                  "type": "user",
+                                  "id": "17738362",
+                                  "name": "sean rose",
+                                  "login": "sean@box.com"
+                              },
+                              "shared_link": {
+                                  "url": "https://www.box.com/s/vspke7y05sb214wjokpk",
+                                  "download_url": null,
+                                  "vanity_url": null,
+                                  "is_password_enabled": false,
+                                  "unshared_at": null,
+                                  "download_count": 0,
+                                  "preview_count": 0,
+                                  "access": "open",
+                                  "permissions": {
+                                      "can_download": true,
+                                      "can_preview": true
+                                  }
+                              },
+                              "folder_upload_email": {
+                                  "access": "open",
+                                  "email": "upload.Picture.k13sdz1@u.box.com"
+                              },
+                              "parent": {
+                                  "type": "folder",
+                                  "id": "0",
+                                  "sequence_id": null,
+                                  "etag": null,
+                                  "name": "All Files"
+                              },
+                              "item_status": "active",
+                              "item_collection": {
+                                  "total_count": 1,
+                                  "entries": [
+                                      {
+                                          "type": "file",
+                                          "id": "5000948880",
+                                          "sequence_id": "3",
+                                          "etag": "3",
+                                          "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc",
+                                          "name": "tigers.jpeg"
+                                      }
+                                  ],
+                                  "offset": 0,
+                                  "limit": 100
+                              }
+                            }
+"/search": 
+    get: 
+        description: "<<The search endpoint provides a powerful way of finding items that are accessible by a single user or an entire enterprise. Leverage the parameters listed below to generate targeted advanced searches.>>"
+        queryParameters: 
+            "query": 
+                type: string
+                required: true
+                repeat: false
+            "scope": 
+                type: string
+                required: false
+                repeat: false
+            "file_extensions": 
+                type: string
+                required: false
+                repeat: false
+            "created_at_range": 
+                type: string
+                required: false
+                repeat: false
+            "updated_at_range": 
+                type: string
+                required: false
+                repeat: false
+            "size_range": 
+                type: string
+                required: false
+                repeat: false
+            "owner_user_ids": 
+                type: string
+                required: false
+                repeat: false
+            "ancestor_folder_ids": 
+                type: string
+                required: false
+                repeat: false
+            "content_types": 
+                type: string
+                required: false
+                repeat: false
+            "type": 
+                type: string
+                required: false
+                repeat: false
+            "limit": 
+                type: integer
+                required: false
+                repeat: false
+            "offset": 
+                type: integer
+                required: false
+                repeat: false
+        responses: 
+            "200": 
+                body: 
+                    "application/json": 
+                        example: |
+                            {
+                              "total_count": 1,
+                              "entries": [
+                                  {
+                                      "type": "file",
+                                      "id": "172245607",
+                                      "sequence_id": "1",
+                                      "etag": "1",
+                                      "sha1": "f89d97c5eea0a68e2cec911s932eca34a52355d2",
+                                      "name": "Box for Sales - Empowering Your Mobile Worker White paper 2pg (External).pdf",
+                                      "description": "This is old and needs to be updated - but general themes still apply",
+                                      "size": 408979,
+                                      "path_collection": {
+                                          "total_count": 2,
+                                          "entries": [
+                                              {
+                                                  "type": "folder",
+                                                  "id": "0",
+                                                  "sequence_id": null,
+                                                  "etag": null,
+                                                  "name": "All Files"
+                                              },
+                                              {
+                                                  "type": "folder",
+                                                  "id": "2150506",
+                                                  "sequence_id": "1",
+                                                  "etag": "1",
+                                                  "name": "Marketing Active Work"
+                                              }
+                               ]
+                                      },
+                                      "created_at": "2014-05-17T12:59:45-07:00",
+                                      "modified_at": "2014-05-17T13:00:20-07:00",
+                                      "trashed_at": null,
+                                      "purged_at": null,
+                                      "content_created_at": "2014-05-17T12:58:58-07:00",
+                                      "content_modified_at": "2014-05-17T12:58:58-07:00",
+                                      "created_by": {
+                                          "type": "user",
+                                          "id": "19551097",
+                                          "name": "Ted Blosser",
+                                          "login": "ted@box.com"
+                                      },
+                                      "modified_by": {
+                                          "type": "user",
+                                          "id": "19551097",
+                                          "name": "Ted Blosser",
+                                          "login": "ted@box.com"
+                                      },
+                                      "owned_by": {
+                                          "type": "user",
+                                          "id": "19551097",
+                                          "name": "Ted Blosser",
+                                          "login": "ted@box.com"
+                                      },
+                                      "shared_link": null,
+                                      "parent": {
+                                                  "type": "folder",
+                                                  "id": "2150506",
+                                                  "sequence_id": "1",
+                                                  "etag": "1",
+                                                  "name": "Marketing Active Work"
+                                      },
+                                      "item_status": "active"
+                                  }
+                              ],
+                              "limit": 30,
+                              "offset": 0
+                            }
+"/users": 
+    get: 
+        description: "<<Returns a list of all users for the Enterprise along with their user_id, public_name, and login.>>"
+        headers: 
+            "As-User": 
+                description: "Used for enterprise administrators to make API calls for their managed users."
+                type: string
+                required: false
+                repeat: false
+        queryParameters: 
+            "filter_term": 
+                type: string
+                required: false
+                repeat: false
+            "limit": 
+                type: integer
+                required: false
+                repeat: false
+            "offset": 
+                type: integer
+                required: false
+                repeat: false
+        responses: 
+            "200": 
+                body: 
+                    "application/json": 
+                        example: |
+                            {
+                              "total_count": 1,
+                              "entries": [
+                                  {
+                                      "type": "user",
+                                      "id": "181216415",
+                                      "name": "sean rose",
+                                      "login": "sean+awesome@box.com",
+                                      "created_at": "2012-05-03T21:39:11-07:00",
+                                      "modified_at": "2012-08-23T14:57:48-07:00",
+                                      "language": "en",
+                                      "space_amount": 5368709120,
+                                      "space_used": 52947,
+                                      "max_upload_size": 104857600,
+                                      "status": "active",
+                                      "job_title": "",
+                                      "phone": "5555551374",
+                                      "address": "10 Cloud Way Los Altos CA",
+                                      "avatar_url": "https://app.box.com/api/avatar/large/181216415"
+                                  }
+                              ]
+                            }
+    post: 
+        description: "<<Used to provision a new user in an enterprise. This method only works for enterprise admins.>>"
+        body: 
+            "application/x-www-form-urlencoded": 
+                formParameters: 
+                    "login": 
+                        description: "The email address this user uses to login"
+                        type: string
+                        required: true
+                        repeat: false
+                    "name": 
+                        description: "The name of this user"
+                        type: string
+                        required: true
+                        repeat: false
+                    "role": 
+                        description: "This user’s enterprise role. Can be coadmin or user"
+                        type: string
+                        required: false
+                        repeat: false
+                    "language": 
+                        description: "The language of this user"
+                        type: string
+                        required: false
+                        repeat: false
+                    "is_sync_enabled": 
+                        description: "Whether or not this user can use Box Sync"
+                        type: boolean
+                        required: false
+                        repeat: false
+                    "job_title": 
+                        description: "The user’s job title"
+                        type: string
+                        required: false
+                        repeat: false
+                    "phone": 
+                        description: "The user’s phone number"
+                        type: string
+                        required: false
+                        repeat: false
+                    "address": 
+                        description: "The user’s address"
+                        type: string
+                        required: false
+                        repeat: false
+                    "space_amount": 
+                        description: "The user’s total available space amount in bytes"
+                        type: number
+                        required: false
+                        repeat: false
+                    "tracking_codes": 
+                        description: "An array of key/value pairs set by the user’s admin"
+                        type: string
+                        required: false
+                        repeat: false
+                    "can_see_managed_users": 
+                        description: "Whether this user can see other enterprise users in its contact list"
+                        type: boolean
+                        required: false
+                        repeat: false
+                    "status": 
+                        description: "Can be active, inactive. cannot_delete_edit, or cannot_delete_edit_upload."
+                        type: string
+                        required: false
+                        repeat: false
+                    "timezone": 
+                        description: "The timezone of this user."
+                        type: string
+                        required: false
+                        repeat: false
+                    "is_exempt_from_device_limits": 
+                        description: "Whether to exempt this user from Enterprise device limits"
+                        type: boolean
+                        required: false
+                        repeat: false
+                    "is_exempt_from_login_verification": 
+                        description: "Whether or not this user must use two-factor authentication"
+                        type: boolean
+                        required: false
+                        repeat: false
+        responses: 
+            "200": 
+                body: 
+                    "application/json": 
+                        example: |
+                            {
+                              "type": "user",
+                              "id": "187273718",
+                              "name": "Ned Stark",
+                              "login": "eddard@box.com",
+                              "created_at": "2012-11-15T16:34:28-08:00",
+                              "modified_at": "2012-11-15T16:34:29-08:00",
+                              "role": "user",
+                              "language": "en",
+                              "space_amount": 5368709120,
+                              "space_used": 0,
+                              "max_upload_size": 2147483648,
+                              "tracking_codes": [],
+                              "can_see_managed_users": true,
+                              "is_sync_enabled": true,
+                              "status": "active",
+                              "job_title": "",
+                              "phone": "555-555-5555",
+                              "address": "555 Box Lane",
+                              "avatar_url": "https://www.box.com/api/avatar/large/187273718",
+                              "is_exempt_from_device_limits": false,
+                              "is_exempt_from_login_verification": false
+                            }
+    "/{id}": 
+        uriParameters: 
+            "id": 
+                displayName: "id"
+                type: string
+                required: true
+                repeat: false
+        put: 
+            description: "<<Used to edit the settings and information about a user. This method only works for enterprise admins. To roll a user out of the enterprise (and convert them to a standalone free user), update the special enterprise attribute to be null>>"
+            queryParameters: 
+                "notify": 
+                    description: "Whether the user should receive an email when they are rolled out of an enterprise"
+                    type: string
+                    required: false
+                    repeat: false
+            body: 
+                "application/x-www-form-urlencoded": 
+                    formParameters: 
+                        "enterprise": 
+                            description: "Setting this to null will roll the user out of the enterprise and make them a free user"
+                            type: string
+                            required: false
+                            repeat: false
+                        "name": 
+                            description: "The name of this user"
+                            type: string
+                            required: true
+                            repeat: false
+                        "role": 
+                            description: "This user’s enterprise role. Can be coadmin or user"
+                            type: string
+                            required: false
+                            repeat: false
+                        "language": 
+                            description: "The language of this user"
+                            type: string
+                            required: false
+                            repeat: false
+                        "is_sync_enabled": 
+                            description: "Whether or not this user can use Box Sync"
+                            type: boolean
+                            required: false
+                            repeat: false
+                        "job_title": 
+                            description: "The user’s job title"
+                            type: string
+                            required: false
+                            repeat: false
+                        "phone": 
+                            description: "The user’s phone number"
+                            type: string
+                            required: false
+                            repeat: false
+                        "address": 
+                            description: "The user’s address"
+                            type: string
+                            required: false
+                            repeat: false
+                        "space_amount": 
+                            description: "The user’s total available space amount in bytes"
+                            type: number
+                            required: false
+                            repeat: false
+                        "tracking_codes": 
+                            description: "An array of key/value pairs set by the user’s admin"
+                            type: string
+                            required: false
+                            repeat: false
+                        "can_see_managed_users": 
+                            description: "Whether this user can see other enterprise users in its contact list"
+                            type: boolean
+                            required: false
+                            repeat: false
+                        "status": 
+                            description: "Can be active, inactive. cannot_delete_edit, or cannot_delete_edit_upload."
+                            type: string
+                            required: false
+                            repeat: false
+                        "timezone": 
+                            description: "The timezone of this user."
+                            type: string
+                            required: false
+                            repeat: false
+                        "is_exempt_from_device_limits": 
+                            description: "Whether to exempt this user from Enterprise device limits"
+                            type: boolean
+                            required: false
+                            repeat: false
+                        "is_exempt_from_login_verification": 
+                            description: "Whether or not this user must use two-factor authentication"
+                            type: boolean
+                            required: false
+                            repeat: false
+                        "is_password_reset_required": 
+                            description: "Whether or not the user is required to reset password"
+                            type: boolean
+                            required: false
+                            repeat: false
+            responses: 
+                "200": 
+                    body: 
+                        "application/json": 
+                            example: |
+                                {
+                                  "type": "user",
+                                  "id": "181216415",
+                                  "name": "sean",
+                                  "login": "sean+awesome@box.com",
+                                  "created_at": "2012-05-03T21:39:11-07:00",
+                                  "modified_at": "2012-12-06T18:17:16-08:00",
+                                  "role": "admin",
+                                  "language": "en",
+                                  "space_amount": 5368709120,
+                                  "space_used": 1237179286,
+                                  "max_upload_size": 2147483648,
+                                  "tracking_codes": [],
+                                  "can_see_managed_users": true,
+                                  "is_sync_enabled": true,
+                                  "status": "active",
+                                  "job_title": "",
+                                  "phone": "6509241374",
+                                  "address": "",
+                                  "avatar_url": "https://www.box.com/api/avatar/large/181216415",
+                                  "is_exempt_from_device_limits": false,
+                                  "is_exempt_from_login_verification": false
+                                }
+        delete: 
+            description: "<<Deletes a user in an enterprise account.>>"
+            queryParameters: 
+                "notify": 
+                    description: "Determines if the destination user should receive email notification of the transfer."
+                    type: boolean
+                    required: false
+                    repeat: false
+                "force": 
+                    description: "Whether or not the user should be deleted even if this user still own files."
+                    type: boolean
+                    required: false
+                    repeat: false
+        "/email_aliases": 
+            get: 
+                description: "<<Retrieves all email aliases for this user. The collection of email aliases does not include the primary login for the user; use GET /users/USER_ID to retrieve the login email address.>>"
+                responses: 
+                    "200": 
+                        body: 
+                            "application/json": 
+                                example: |
+                                    {
+                                      "total_count": 1,
+                                      "entries": [
+                                          {
+                                              "type": "email_alias",
+                                              "id": "1234",
+                                              "is_confirmed": true,
+                                              "email": "dglover2@box.com"
+                                          },
+                                          {
+                                              "type": "email_alias",
+                                              "id": "1235",
+                                              "is_confirmed": true,
+                                              "email": "dglover3@box.com"
+                                          }
+                                      ]
+                                    }
+            post: 
+                description: "<<Adds a new email alias to the given user’s account.>>"
+                body: 
+                    "application/x-www-form-urlencoded": 
+                        formParameters: 
+                            "email": 
+                                description: "The email address to add to the account as an alias"
+                                type: string
+                                required: true
+                                repeat: false
+                responses: 
+                    "200": 
+                        body: 
+                            "application/json": 
+                                example: |
+                                    {
+                                      "type":"email_alias",
+                                      "id":"1234",
+                                      "is_confirmed":true,
+                                      "email": "dglover2@box.com"
+                                    }
+            "/{email_alias_id}": 
+                uriParameters: 
+                    "email_alias_id": 
+                        displayName: "email_alias_id"
+                        type: string
+                        required: true
+                        repeat: false
+                delete: 
+                    description: "<<Removes an email alias from a user.>>"
+        "/memberships": 
+            get: 
+                description: "<<Retrieves all of the group memberships for a given enterprise. Note this is only available to group admins. To get a users groups use the users/me/memberships endpoint.>>"
+                responses: 
+                    "200": 
+                        body: 
+                            "application/json": 
+                                example: |
+                                    {
+                                      "total_count": 1,
+                                      "entries": [
+                                          {
+                                              "type": "group_membership",
+                                              "id": "1560354",
+                                              "user": {
+                                                  "type": "user",
+                                                  "id": "13130406",
+                                                  "name": "Alison Wonderland",
+                                                  "login": "alice@gmail.com"
+                                              },
+                                              "group": {
+                                                  "type": "group",
+                                                  "id": "119720",
+                                                  "name": "family"
+                                              },
+                                              "role": "member"
+                                          }
+                                      ],
+                                      "limit": 100,
+                                      "offset": 0
+                                    }
+        "/folders/{folder_id}": 
+            uriParameters: 
+                "folder_id": 
+                    displayName: "folder_id"
+                    type: string
+                    required: true
+                    repeat: false
+            put: 
+                description: "<<Moves all of the owned content from within one user’s folder into a new folder in another user’s account. You can move folders across users as long as the you have administrative permissions and the ‘source’ user owns the folders. To move everything from the root folder, use “0” which always represents the root folder of a Box accoun>>"
+                queryParameters: 
+                    "notify": 
+                        description: "Determines if the destination user should receive email notification of the transfer."
+                        type: boolean
+                        required: false
+                        repeat: false
+                body: 
+                    "application/json": 
+                        schema: "owned_by"
+                responses: 
+                    "200": 
+                        body: 
+                            "application/json": 
+                                example: |
+                                    {
+                                      "type": "folder",
+                                      "id": "11446498",
+                                      "sequence_id": "1",
+                                      "etag": "1",
+                                      "name": "Pictures",
+                                      "created_at": "2012-12-12T10:53:43-08:00",
+                                      "modified_at": "2012-12-12T11:15:04-08:00",
+                                      "description": "Some pictures I took",
+                                      "size": 629644,
+                                      "path_collection": {
+                                          "total_count": 1,
+                                          "entries": [
+                                              {
+                                                  "type": "folder",
+                                                  "id": "0",
+                                                  "sequence_id": null,
+                                                  "etag": null,
+                                                  "name": "All Files"
+                                              }
+                                          ]
+                                      },
+                                      "created_by": {
+                                          "type": "user",
+                                          "id": "17738362",
+                                          "name": "sean rose",
+                                          "login": "sean@box.com"
+                                      },
+                                      "modified_by": {
+                                          "type": "user",
+                                          "id": "17738362",
+                                          "name": "sean rose",
+                                          "login": "sean@box.com"
+                                      },
+                                      "owned_by": {
+                                          "type": "user",
+                                          "id": "17738362",
+                                          "name": "sean rose",
+                                          "login": "sean@box.com"
+                                      },
+                                      "shared_link": {
+                                          "url": "https://www.box.com/s/vspke7y05sb214wjokpk",
+                                          "download_url": null,
+                                          "vanity_url": null,
+                                          "is_password_enabled": false,
+                                          "unshared_at": null,
+                                          "download_count": 0,
+                                          "preview_count": 0,
+                                          "access": "open",
+                                          "permissions": {
+                                              "can_download": true,
+                                              "can_preview": true
+                                          }
+                                      },
+                                      "folder_upload_email": {
+                                          "access": "open",
+                                          "email": "upload.Picture.k13sdz1@u.box.com"
+                                      },
+                                      "parent": {
+                                          "type": "folder",
+                                          "id": "0",
+                                          "sequence_id": null,
+                                          "etag": null,
+                                          "name": "All Files"
+                                      },
+                                      "item_status": "active",
+                                      "item_collection": {
+                                          "total_count": 1,
+                                          "entries": [
+                                              {
+                                                  "type": "file",
+                                                  "id": "5000948880",
+                                                  "sequence_id": "3",
+                                                  "etag": "3",
+                                                  "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc",
+                                                  "name": "tigers.jpeg"
+                                              }
+                                          ],
+                                          "offset": 0,
+                                          "limit": 100
+                                      }
+                                    }
+    "/me": 
+        get: 
+            description: "<<Retrieves information about the user who is currently logged in i.e. the user for whom this auth token was generated.>>"
+            responses: 
+                "200": 
+                    body: 
+                        "application/json": 
+                            example: |
+                                {
+                                  "type": "user",
+                                  "id": "17738362",
+                                  "name": "sean rose",
+                                  "login": "sean@box.com",
+                                  "created_at": "2012-03-26T15:43:07-07:00",
+                                  "modified_at": "2012-12-12T11:34:29-08:00",
+                                  "language": "en",
+                                  "space_amount": 5368709120,
+                                  "space_used": 2377016,
+                                  "max_upload_size": 262144000,
+                                  "status": "active",
+                                  "job_title": "Employee",
+                                  "phone": "5555555555",
+                                  "address": "555 Office Drive",
+                                  "avatar_url": "https://app.box.com/api/avatar/large/17738362"
+                                }
+"/groups": 
+    get: 
+        description: "<<Retrieves all of the groups for given user.>>"
+        responses: 
+            "200": 
+                body: 
+                    "application/json": 
+                        example: |
+                            {
+                              "total_count": 1,
+                              "entries": [
+                                  {
+                                      "type": "group",
+                                      "id": "1786931",
+                                      "name": "friends"
+                                  }
+                              ],
+                              "limit": 100,
+                              "offset": 0
+                            }
+    post: 
+        description: "<<Used to create a group.>>"
+        body: 
+            "application/x-www-form-urlencoded": 
+                formParameters: 
+                    "name": 
+                        description: "The name of the new group to be created"
+                        type: string
+                        required: true
+                        repeat: false
+        responses: 
+            "200": 
+                body: 
+                    "application/json": 
+                        example: |
+                            {
+                              "type": "group",
+                              "id": "119720",
+                              "name": "family",
+                              "created_at": "2013-05-16T15:27:57-07:00",
+                              "modified_at": "2013-05-16T15:27:57-07:00"
+                            }
+    "/{id}": 
+        uriParameters: 
+            "id": 
+                displayName: "id"
+                type: string
+                required: true
+                repeat: false
+        put: 
+            description: "<<Updates a specific group>>"
+            body: 
+                "application/x-www-form-urlencoded": 
+                    formParameters: 
+                        "name": 
+                            description: "The name of the new group to be updated"
+                            type: string
+                            required: true
+                            repeat: false
+            responses: 
+                "200": 
+                    body: 
+                        "application/json": 
+                            example: |
+                                {
+                                  "type": "group",
+                                  "id": "119720",
+                                  "name": "framily",
+                                  "created_at": "2013-05-16T15:27:57-07:00",
+                                  "modified_at": "2013-05-16T15:27:57-07:00"
+                                }
+        delete: 
+            description: "<<Permanently deletes a specific group.>>"
+            responses: 
+                "204": 
+        "/memberships": 
+            get: 
+                description: "<Retrieves all of the members for a given group.>>"
+                responses: 
+                    "200": 
+                        body: 
+                            "application/json": 
+                                example: |
+                                    {
+                                      "total_count": 2,
+                                      "entries": [
+                                          {
+                                              "type": "group_membership",
+                                              "id": "1560354",
+                                              "user": {
+                                                  "type": "user",
+                                                  "id": "13130906",
+                                                  "name": "Alice",
+                                                  "login": "alice@gmail.com"
+                                              },
+                                              "group": {
+                                                  "type": "group",
+                                                  "id": "119720",
+                                                  "name": "family"
+                                              },
+                                              "role": "member"
+                                          },
+                                          {
+                                              "type": "group_membership",
+                                              "id": "1560356",
+                                              "user": {
+                                                  "type": "user",
+                                                  "id": "192633962",
+                                                  "name": "rabbit",
+                                                  "login": "rabbit@gmail.com"
+                                              },
+                                              "group": {
+                                                  "type": "group",
+                                                  "id": "119720",
+                                                  "name": "family"
+                                              },
+                                              "role": "member"
+                                          }
+                                      ],
+                                      "offset": 0,
+                                      "limit": 100
+                                    }
+"/group_memberships": 
+    post: 
+        description: "<<Used to add a member to a Group.>>"
+        body: 
+            "application/json": 
+                schema: "groupMember"
+        responses: 
+            "200": 
+                body: 
+                    "application/json": 
+                        example: |
+                            {
+                              "type": "group_membership",
+                              "id": "1560354",
+                              "user": {
+                                  "type": "user",
+                                  "id": "13130406",
+                                  "name": "Alison Wonderland",
+                                  "login": "alice@gmail.com"
+                              },
+                              "group": {
+                                  "type": "group",
+                                  "id": "119720",
+                                  "name": "family"
+                              },
+                              "role": "member"
+                            }
+    "/{id}": 
+        uriParameters: 
+            "id": 
+                displayName: "id"
+                type: string
+                required: true
+                repeat: false
+        get: 
+            description: "<<Fetches a specific group membership entry.>>"
+            responses: 
+                "200": 
+                    body: 
+                        "application/json": 
+                            example: |
+                                {
+                                  "type": "group_membership",
+                                  "id": "1560354",
+                                  "user": {
+                                      "type": "user",
+                                      "id": "13130406",
+                                      "name": "Alison Wonderland",
+                                      "login": "alice@gmail.com"
+                                  },
+                                  "group": {
+                                      "type": "group",
+                                      "id": "119720",
+                                      "name": "family"
+                                  },
+                                  "role": "member",
+                                  "created_at": "2013-05-16T15:27:57-07:00",
+                                  "modified_at": "2013-05-16T15:27:57-07:00"
+                                }
+        post: 
+            description: "<<Used to update a group membership.>>"
+            body: 
+                "application/x-www-form-urlencoded": 
+                    formParameters: 
+                        "role": 
+                            description: "The role for the user in the group"
+                            type: string
+                            required: true
+                            repeat: false
+            responses: 
+                "200": 
+                    body: 
+                        "application/json": 
+                            example: |
+                                {
+                                  "type": "group_membership",
+                                  "id": "1560354",
+                                  "user": {
+                                      "type": "user",
+                                      "id": "13130406",
+                                      "name": "Alison Wonderland",
+                                      "login": "alice@gmail.com"
+                                  },
+                                  "group": {
+                                      "type": "group",
+                                      "id": "119720",
+                                      "name": "family"
+                                  },
+                                  "role": "submaster",
+                                  "created_at": "2013-05-16T15:27:57-07:00",
+                                  "modified_at": "2013-05-16T15:27:57-07:00"
+                                }
+        delete: 
+            description: "<<Deletes a specific group membership.>>"
+            responses: 
+                "204": 
+        "/collaborations": 
+            get: 
+                description: "<<Retrieves all of the group collaborations for a given group. Note this is only available to group admins.>>"
+                responses: 
+                    "200": 
+                        body: 
+                            "application/json": 
+                                example: |
+                                    {
+                                      "total_count": 1,
+                                      "entries": [
+                                          {
+                                              "type": "collaboration",
+                                              "id": "52123184",
+                                              "created_by": {
+                                                  "type": "user",
+                                                  "id": "13130406",
+                                                  "name": "Eddard Stark",
+                                                  "login": "ned@winterfell.com"
+                                              },
+                                              "created_at": "2013-11-14T16:16:20-08:00",
+                                              "modified_at": "2013-11-14T16:16:20-08:00",
+                                              "expires_at": null,
+                                              "status": "accepted",
+                                              "accessible_by": {
+                                                  "type": "group",
+                                                  "id": "160018",
+                                                  "name": "Hand of the King inner counsel"
+                                              },
+                                              "role": "viewer",
+                                              "acknowledged_at": "2013-11-14T16:16:20-08:00",
+                                              "item": {
+                                                  "type": "folder",
+                                                  "id": "541014843",
+                                                  "sequence_id": "0",
+                                                  "etag": "0",
+                                                  "name": "People killed by Ice"
+                                              }
+                                          }
+                                      ],
+                                      "offset": 0,
+                                      "limit": 100
+                                    }
+"/tasks": 
+    post: 
+        description: "<<Used to create a single task for single user on a single file.>>"
+        body: 
+            "application/json": 
+                schema: "taskItem"
+        responses: 
+            "200": 
+                body: 
+                    "application/json": 
+                        example: |
+                            {
+                              "type": "task",
+                              "id": "1839355",
+                              "item": {
+                                  "type": "file",
+                                  "id": "7287087200",
+                                  "sequence_id": "0",
+                                  "etag": "0",
+                                  "sha1": "0bbd79a105c504f99573e3799756debba4c760cd",
+                                  "name": "box-logo.png"
+                              },
+                              "due_at": "2014-04-03T11:09:43-07:00",
+                              "action": "review",
+                              "message": "REVIEW PLZ K THX",
+                              "task_assignment_collection": {
+                                  "total_count": 0,
+                                  "entries": []
+                              },
+                              "is_completed": false,
+                              "created_by": {
+                                  "type": "user",
+                                  "id": "11993747",
+                                  "name": "☁ sean ☁",
+                                  "login": "sean@box.com"
+                              },
+                              "created_at": "2013-04-03T11:12:54-07:00"
+                            }
+    "/{id}": 
+        uriParameters: 
+            "id": 
+                displayName: "id"
+                type: string
+                required: true
+                repeat: false
+        get: 
+            description: "<<Fetches a specific task.>>"
+            responses: 
+                "200": 
+                    body: 
+                        "application/json": 
+                            example: |
+                                {
+                                  "type": "task",
+                                  "id": "1839355",
+                                  "item": {
+                                      "type": "file",
+                                      "id": "7287087200",
+                                      "sequence_id": "0",
+                                      "etag": "0",
+                                      "sha1": "0bbd79a105c504f99573e3799756debba4c760cd",
+                                      "name": "box-logo.png"
+                                  },
+                                  "due_at": "2014-04-03T11:09:43-07:00",
+                                  "action": "review",
+                                  "message": "REVIEW PLZ K THX",
+                                  "task_assignment_collection": {
+                                      "total_count": 0,
+                                      "entries": []
+                                  },
+                                  "is_completed": false,
+                                  "created_by": {
+                                      "type": "user",
+                                      "id": "11993747",
+                                      "name": "☁ sean ☁",
+                                      "login": "sean@box.com"
+                                  },
+                                  "created_at": "2013-04-03T11:12:54-07:00"
+                                }
+        put: 
+            description: "<<Updates a specific task.>>"
+            responses: 
+                "200": 
+                    body: 
+                        "application/json": 
+                            example: |
+                                {
+                                  "type": "task",
+                                  "id": "1839355",
+                                  "item": {
+                                      "type": "file",
+                                      "id": "7287087200",
+                                      "sequence_id": "0",
+                                      "etag": "0",
+                                      "sha1": "0bbd79a105c504f99573e3799756debba4c760cd",
+                                      "name": "box-logo.png"
+                                  },
+                                  "due_at": "2014-04-03T11:09:43-07:00",
+                                  "action": "review",
+                                  "message": "REVIEW PLZ K THX",
+                                  "task_assignment_collection": {
+                                      "total_count": 0,
+                                      "entries": []
+                                  },
+                                  "is_completed": false,
+                                  "created_by": {
+                                      "type": "user",
+                                      "id": "11993747",
+                                      "name": "☁ sean ☁",
+                                      "login": "sean@box.com"
+                                  },
+                                  "created_at": "2013-04-03T11:12:54-07:00"
+                                }
+        delete: 
+            description: "<<Permanently deletes a specific task.>>"
+            responses: 
+                "204": 
+        "/assignments": 
+            get: 
+                description: "<<Retrieves all of the assignments for a given task.>>"
+                responses: 
+                    "200": 
+                        body: 
+                            "application/json": 
+                                example: |
+                                    {
+                                      "total_count": 1,
+                                      "entries": [
+                                          {
+                                              "type": "task_assignment",
+                                              "id": "2485961",
+                                              "item": {
+                                                  "type": "file",
+                                                  "id": "7287087200",
+                                                  "sequence_id": "0",
+                                                  "etag": "0",
+                                                  "sha1": "0bbd79a105c504f99573e3799756debba4c760cd",
+                                                  "name": "box-logo.png"
+                                              },
+                                              "assigned_to": {
+                                                  "type": "user",
+                                                  "id": "193425559",
+                                                  "name": "Rhaegar Targaryen",
+                                                  "login": "rhaegar@box.com"
+                                              }
+                                          }
+                                      ]
+                                    }
+"/task_assignments": 
+    post: 
+        description: "<<Used to assign a task to a single user. There can be multiple assignments on a given task.>>"
+        body: 
+            "application/json": 
+                schema: "taskAssignment"
+        responses: 
+            "200": 
+                body: 
+                    "application/json": 
+                        example: |
+                            {
+                              "type": "task_assignment",
+                              "id": "2698512",
+                              "item": {
+                                  "type": "file",
+                                  "id": "8018809384",
+                                  "sequence_id": "0",
+                                  "etag": "0",
+                                  "sha1": "7840095ee096ee8297676a138d4e316eabb3ec96",
+                                  "name": "scrumworksToTrello.js"
+                              },
+                              "assigned_to": {
+                                  "type": "user",
+                                  "id": "1992432",
+                                  "name": "rhaegar@box.com",
+                                  "login": "rhaegar@box.com"
+                              },
+                              "message": null,
+                              "completed_at": null,
+                              "assigned_at": "2013-05-10T11:43:41-07:00",
+                              "reminded_at": null,
+                              "resolution_state": "incomplete",
+                              "assigned_by": {
+                                  "type": "user",
+                                  "id": "11993747",
+                                  "name": "☁ sean ☁",
+                                  "login": "sean@box.com"
+                              }
+                            }
+    "/{id}": 
+        uriParameters: 
+            "id": 
+                displayName: "id"
+                type: string
+                required: true
+                repeat: false
+        get: 
+            description: "<<Fetches a specific task assignment.>>"
+            responses: 
+                "200": 
+                    body: 
+                        "application/json": 
+                            example: |
+                                {
+                                  "type": "task_assignment",
+                                  "id": "2698512",
+                                  "item": {
+                                      "type": "file",
+                                      "id": "8018809384",
+                                      "sequence_id": "0",
+                                      "etag": "0",
+                                      "sha1": "7840095ee096ee8297676a138d4e316eabb3ec96",
+                                      "name": "scrumworksToTrello.js"
+                                  },
+                                  "assigned_to": {
+                                      "type": "user",
+                                      "id": "1992432",
+                                      "name": "rhaegar@box.com",
+                                      "login": "rhaegar@box.com"
+                                  },
+                                  "message": null,
+                                  "completed_at": null,
+                                  "assigned_at": "2013-05-10T11:43:41-07:00",
+                                  "reminded_at": null,
+                                  "resolution_state": "incomplete",
+                                  "assigned_by": {
+                                      "type": "user",
+                                      "id": "11993747",
+                                      "name": "☁ sean ☁",
+                                      "login": "sean@box.com"
+                                  }
+                                }
+        delete: 
+            description: "<<Deletes a specific task assignment.>>"
+            responses: 
+                "204": 
+        put: 
+            description: "<<Used to update a task assignment.>>"
+            body: 
+                "application/x-www-form-urlencoded": 
+                    formParameters: 
+                        "message": 
+                            description: "A message from the assignee about this task"
+                            type: string
+                            required: false
+                            repeat: false
+                        "resolution_state": 
+                            description: "Can be completed, incomplete, approved, or rejected"
+                            type: string
+                            required: false
+                            repeat: false
+            responses: 
+                "200": 
+                    body: 
+                        "application/json": 
+                            example: |
+                                {
+                                  "type": "task_assignment",
+                                  "id": "2698512",
+                                  "item": {
+                                      "type": "file",
+                                      "id": "8018809384",
+                                      "sequence_id": "0",
+                                      "etag": "0",
+                                      "sha1": "7840095ee096ee8297676a138d4e316eabb3ec96",
+                                      "name": "scrumworksToTrello.js"
+                                  },
+                                  "assigned_to": {
+                                      "type": "user",
+                                      "id": "1992432",
+                                      "name": "rhaegar@box.com",
+                                      "login": "rhaegar@box.com"
+                                  },
+                                  "message": "hello!!!",
+                                  "completed_at": null,
+                                  "assigned_at": "2013-05-10T11:43:41-07:00",
+                                  "reminded_at": null,
+                                  "resolution_state": "incomplete",
+                                  "assigned_by": {
+                                      "type": "user",
+                                      "id": "11993747",
+                                      "name": "☁ sean ☁",
+                                      "login": "sean@box.com"
+                                  }
+                                }

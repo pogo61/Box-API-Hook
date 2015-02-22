@@ -1,0 +1,138 @@
+#%RAML 0.8
+title: "Box Upload API"
+version: "2.0"
+baseUri: "https://upload.box.com/api/2.0"
+securitySchemes: 
+    - 
+        "oauth_2_0": 
+            description: |
+                Dropbox supports OAuth 2.0 for authenticating all API requests.
+            type: "OAuth 2.0"
+            describedBy: 
+                headers: 
+                    "Authorization": 
+                        description: |
+                            Used to send a valid OAuth 2 access token. Do not use
+                            with the "access_token" query string parameter.
+                        type: string
+                        required: false
+                        repeat: false
+                queryParameters: 
+                    "access_token": 
+                        description: |
+                            Used to send a valid OAuth 2 access token. Do not use together with
+                            the "Authorization" header
+                        type: string
+                        required: false
+                        repeat: false
+                responses: 
+                    "401": 
+                        description: |
+                            Bad or expired token. This can happen if the user or Dropbox
+                            revoked or expired an access token. To fix, you should re-
+                            authenticate the user.
+                    "403": 
+                        description: |
+                            Bad OAuth request (wrong consumer key, bad nonce, expired
+                            imestamp...). Unfortunately, re-authenticating the user won't help here.
+            settings: 
+                authorizationUri: "https://app.box.com/api/oauth2/authorize"
+                accessTokenUri: "https://app.box.com/api/oauth2/token"
+                authorizationGrants: ["authorization_code"]
+securedBy: 
+    - 
+        oauth_2_0
+"/files": 
+    description: "File objects represent that metadata about individual files in Box, with attributes describing who created the file, when it was last modified, and other information. The actual content of the file itself is accessible through the /files/{id}/content endpoint"
+    "/content": 
+        description: "Use the Uploads API to allow users to add a new file. The user can then upload a file by specifying the destination folder for the file. If the user provides a file name that already exists in the destination folder, the user will receive an error. This API uses the multipart post method to complete all upload tasks. You can optionally specify a Content-MD5 header with the SHA1 hash of the file to ensure that the file is not corrupted in transit."
+        post: 
+            description: "upload file"
+            headers: 
+                "Content-MD5": 
+                    type: string
+                    required: true
+                    repeat: false
+            body: 
+                "application/x-www-form-urlencoded": 
+                    formParameters: 
+                        "attributes": 
+                            type: string
+                            required: false
+                            repeat: false
+                        "file": 
+                            type: string
+                            required: false
+                            repeat: false
+            responses: 
+                "200": 
+                    body: 
+                        "application/json": 
+                            example: |
+                                {
+                                  "total_count": 1,
+                                  "entries": [
+                                      {
+                                          "type": "file",
+                                          "id": "5000948880",
+                                          "sequence_id": "3",
+                                          "etag": "3",
+                                          "sha1": "134b65991ed521fcfe4724b7d814ab8ded5185dc",
+                                          "name": "tigers.jpeg",
+                                          "description": "a picture of tigers",
+                                          "size": 629644,
+                                          "path_collection": {
+                                              "total_count": 2,
+                                              "entries": [
+                                                  {
+                                                      "type": "folder",
+                                                      "id": "0",
+                                                      "sequence_id": null,
+                                                      "etag": null,
+                                                      "name": "All Files"
+                                                  },
+                                                  {
+                                                      "type": "folder",
+                                                      "id": "11446498",
+                                                      "sequence_id": "1",
+                                                      "etag": "1",
+                                                      "name": "Pictures"
+                                                  }
+                                              ]
+                                          },
+                                          "created_at": "2012-12-12T10:55:30-08:00",
+                                          "modified_at": "2012-12-12T11:04:26-08:00",
+                                          "trashed_at": null,
+                                          "purged_at": null,
+                                          "content_created_at": "2013-02-04T16:57:52-08:00",
+                                          "content_modified_at": "2013-02-04T16:57:52-08:00",
+                                          "created_by": {
+                                              "type": "user",
+                                              "id": "17738362",
+                                              "name": "sean rose",
+                                              "login": "sean@box.com"
+                                          },
+                                          "modified_by": {
+                                              "type": "user",
+                                              "id": "17738362",
+                                              "name": "sean rose",
+                                              "login": "sean@box.com"
+                                          },
+                                          "owned_by": {
+                                              "type": "user",
+                                              "id": "17738362",
+                                              "name": "sean rose",
+                                              "login": "sean@box.com"
+                                          },
+                                          "shared_link": null,
+                                          "parent": {
+                                              "type": "folder",
+                                              "id": "11446498",
+                                              "sequence_id": "1",
+                                              "etag": "1",
+                                              "name": "Pictures"
+                                          },
+                                          "item_status": "active"
+                                      }
+                                  ]
+                                }

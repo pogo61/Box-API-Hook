@@ -1,0 +1,34 @@
+#%RAML 0.8
+title: Box API Hook
+version: 1.0
+baseUri: https://soa.com
+schemas:
+  -
+    success: |
+      {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "id": "http://jsonschema.net",
+        "type": "object",
+        "properties": {
+          "status": {
+            "id": "http://jsonschema.net/status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      }
+/file:
+  put:
+    description: <<put a file with the contents of the JSON inputted onto Box>>
+    body:
+      application/json:
+        schema: input
+    responses:
+      200:
+        body:
+          application/json:
+            schema: success
+            example: |
+              {"status":"Success"}
