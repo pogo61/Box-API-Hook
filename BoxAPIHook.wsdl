@@ -1,0 +1,875 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="https://api.box.com/2.0/hook" xmlns:shttp="http://soa.com/wsdl/http" xmlns:sdoc="http://soa.com/wsdl/doc" xmlns:ns1="https://upload.box.com/api/2.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="https://api.box.com/2.0/hook" xmlns:ns0="https://api.box.com/2.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <wsdl:message name="PUT__groups__id_RequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__foldersResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PUT__comments__comment_id_ResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__users__id__email_aliasesRequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__group_membershipsResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__files__id_ResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__files_contentRequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__task_assignmentsRequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PUT__folders__id_RequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PUT__comments__comment_id_RequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__folders__id__collaborationsResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__searchResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__groups__id__membershipsResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__tasks__id_ResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__folders__id__itemResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__group_memberships__id_RequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PUT__task_assignments__id_RequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__files__id__commentsResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PUT__folders__id_ResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__groupsResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__collaborationsRequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__tasksRequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PUT__users__id_ResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__folders__id_ResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PUT__groups__id_ResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__group_memberships__id__collaborationsResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__folders__id_RequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__users_meResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PUT__task_assignments__id_ResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__users__id__email_aliasesResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__foldersRequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__usersResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__shared_itemsRequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__eventsResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__tasks__id__assignmentsResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__files__id__versionsResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__collaborationsResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__files__id__copyResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__folders__id__trashResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__files_contentResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__users__id__membershipsResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__shared_itemsResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__task_assignments__id_ResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PUT__users__id_RequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__group_memberships__id_ResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__folders__id_ResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PUT__collaborations__id_RequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PUT__files__id_RequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PUT__users__id__folders__folder_id_ResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__tasksResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__files__id__versions_currentResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PUT__files__id_ResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PUT__collaborations__id_ResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__usersResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__group_membershipsRequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__users__id__email_aliasesResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__files__id_ResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__commentsResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__files__id__copyRequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__usersRequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PUT__users__id__folders__folder_id_RequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__folders__id__copyResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__comments__comment_id_ResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__task_assignmentsResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__files__id__tasksResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__files__id_RequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__folders__id__copyRequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__collaborations__id_ResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__groupsResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__files__id__versions_currentRequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__commentsRequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__files__id__trashResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__folders_trash_itemsResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PUT__tasks__id_ResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GET__group_memberships__id_ResponseMessage">
+    <wsdl:part name="response" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="POST__groupsRequestMessage">
+    <wsdl:part name="request" type="xs:any">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Box_API_Hook">
+<wsdl:documentation/>
+    <wsdl:operation name="PUT__tasks__id_">
+<wsdl:documentation><sdoc:displayName>PUT /tasks/{id}</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:PUT__tasks__id_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__files__id__versions__version_id_">
+<wsdl:documentation><sdoc:displayName>DELETE /files/{id}/versions/{version_id}</sdoc:displayName></wsdl:documentation>
+    </wsdl:operation>
+    <wsdl:operation name="PUT__task_assignments__id_">
+<wsdl:documentation><sdoc:displayName>PUT /task_assignments/{id}</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:PUT__task_assignments__id_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:PUT__task_assignments__id_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET__folders__id__item">
+<wsdl:documentation><sdoc:displayName>GET /folders/{id}/item</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__folders__id__itemResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET__folders__id__trash">
+<wsdl:documentation><sdoc:displayName>GET /folders/{id}/trash</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__folders__id__trashResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__collaborations__id_">
+<wsdl:documentation><sdoc:displayName>DELETE /collaborations/{id}</sdoc:displayName></wsdl:documentation>
+    </wsdl:operation>
+    <wsdl:operation name="POST__tasks">
+<wsdl:documentation><sdoc:displayName>POST /tasks</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:POST__tasksRequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:POST__tasksResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="POST__files__id__versions_current">
+<wsdl:documentation><sdoc:displayName>POST /files/{id}/versions/current</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:POST__files__id__versions_currentRequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:POST__files__id__versions_currentResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET__comments__comment_id_">
+<wsdl:documentation><sdoc:displayName>GET /comments/{comment_id}</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__comments__comment_id_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET__files__id__trash">
+<wsdl:documentation><sdoc:displayName>GET /files/{id}/trash</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__files__id__trashResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET__shared_items">
+<wsdl:documentation><sdoc:displayName>GET /shared_items</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:GET__shared_itemsRequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:GET__shared_itemsResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__files__id__trash">
+<wsdl:documentation><sdoc:displayName>DELETE /files/{id}/trash</sdoc:displayName></wsdl:documentation>
+    </wsdl:operation>
+    <wsdl:operation name="GET__files__id___thumbnail_file_name_">
+<wsdl:documentation><sdoc:displayName>GET /files/{id}/{thumbnail_file_name}</sdoc:displayName></wsdl:documentation>
+    </wsdl:operation>
+    <wsdl:operation name="PUT__users__id__folders__folder_id_">
+<wsdl:documentation><sdoc:displayName>PUT /users/{id}/folders/{folder_id}</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:PUT__users__id__folders__folder_id_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:PUT__users__id__folders__folder_id_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET__files__id_">
+<wsdl:documentation><sdoc:displayName>GET /files/{id}</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__files__id_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET__group_memberships__id__collaborations">
+<wsdl:documentation><sdoc:displayName>GET /group_memberships/{id}/collaborations</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__group_memberships__id__collaborationsResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PUT__folders__id_">
+<wsdl:documentation><sdoc:displayName>PUT /folders/{id}</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:PUT__folders__id_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:PUT__folders__id_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET__group_memberships__id_">
+<wsdl:documentation><sdoc:displayName>GET /group_memberships/{id}</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__group_memberships__id_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET__files__id__comments">
+<wsdl:documentation><sdoc:displayName>GET /files/{id}/comments</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__files__id__commentsResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET__folders__id__collaborations">
+<wsdl:documentation><sdoc:displayName>GET /folders/{id}/collaborations</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__folders__id__collaborationsResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PUT__files__id_">
+<wsdl:documentation><sdoc:displayName>PUT /files/{id}</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:PUT__files__id_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:PUT__files__id_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="POST__folders__id__copy">
+<wsdl:documentation><sdoc:displayName>POST /folders/{id}/copy</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:POST__folders__id__copyRequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:POST__folders__id__copyResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="POST__task_assignments">
+<wsdl:documentation><sdoc:displayName>POST /task_assignments</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:POST__task_assignmentsRequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:POST__task_assignmentsResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET__events">
+<wsdl:documentation><sdoc:displayName>GET /events</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__eventsResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__group_memberships__id_">
+<wsdl:documentation><sdoc:displayName>DELETE /group_memberships/{id}</sdoc:displayName></wsdl:documentation>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__groups__id_">
+<wsdl:documentation><sdoc:displayName>DELETE /groups/{id}</sdoc:displayName></wsdl:documentation>
+    </wsdl:operation>
+    <wsdl:operation name="PUT__groups__id_">
+<wsdl:documentation><sdoc:displayName>PUT /groups/{id}</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:PUT__groups__id_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:PUT__groups__id_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__users__id_">
+<wsdl:documentation><sdoc:displayName>DELETE /users/{id}</sdoc:displayName></wsdl:documentation>
+    </wsdl:operation>
+    <wsdl:operation name="GET__groups">
+<wsdl:documentation><sdoc:displayName>GET /groups</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__groupsResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="POST__folders__id_">
+<wsdl:documentation><sdoc:displayName>POST /folders/{id}</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:POST__folders__id_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:POST__folders__id_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="POST__files__id__copy">
+<wsdl:documentation><sdoc:displayName>POST /files/{id}/copy</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:POST__files__id__copyRequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:POST__files__id__copyResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET__files__id__tasks">
+<wsdl:documentation><sdoc:displayName>GET /files/{id}/tasks</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__files__id__tasksResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__files__id_">
+<wsdl:documentation><sdoc:displayName>DELETE /files/{id}</sdoc:displayName></wsdl:documentation>
+    </wsdl:operation>
+    <wsdl:operation name="POST__files_content">
+<wsdl:documentation><sdoc:displayName>POST /files/content</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:POST__files_contentRequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:POST__files_contentResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__users__id__email_aliases__email_alias_id_">
+<wsdl:documentation><sdoc:displayName>DELETE /users/{id}/email_aliases/{email_alias_id}</sdoc:displayName></wsdl:documentation>
+    </wsdl:operation>
+    <wsdl:operation name="GET__files__id__content">
+<wsdl:documentation><sdoc:displayName>GET /files/{id}/content</sdoc:displayName></wsdl:documentation>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__folders__id__trash">
+<wsdl:documentation><sdoc:displayName>DELETE /folders/{id}/trash</sdoc:displayName></wsdl:documentation>
+    </wsdl:operation>
+    <wsdl:operation name="GET__groups__id__memberships">
+<wsdl:documentation><sdoc:displayName>GET /groups/{id}/memberships</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__groups__id__membershipsResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="POST__collaborations">
+<wsdl:documentation><sdoc:displayName>POST /collaborations</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:POST__collaborationsRequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:POST__collaborationsResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET__collaborations__id_">
+<wsdl:documentation><sdoc:displayName>GET /collaborations/{id}</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__collaborations__id_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__task_assignments__id_">
+<wsdl:documentation><sdoc:displayName>DELETE /task_assignments/{id}</sdoc:displayName></wsdl:documentation>
+    </wsdl:operation>
+    <wsdl:operation name="GET__task_assignments__id_">
+<wsdl:documentation><sdoc:displayName>GET /task_assignments/{id}</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__task_assignments__id_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET__tasks__id__assignments">
+<wsdl:documentation><sdoc:displayName>GET /tasks/{id}/assignments</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__tasks__id__assignmentsResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PUT__users__id_">
+<wsdl:documentation><sdoc:displayName>PUT /users/{id}</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:PUT__users__id_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:PUT__users__id_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__tasks__id_">
+<wsdl:documentation><sdoc:displayName>DELETE /tasks/{id}</sdoc:displayName></wsdl:documentation>
+    </wsdl:operation>
+    <wsdl:operation name="POST__folders">
+<wsdl:documentation><sdoc:displayName>POST /folders</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:POST__foldersRequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:POST__foldersResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="POST__users">
+<wsdl:documentation><sdoc:displayName>POST /users</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:POST__usersRequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:POST__usersResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET__files__id__versions">
+<wsdl:documentation><sdoc:displayName>GET /files/{id}/versions</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__files__id__versionsResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET__users_me">
+<wsdl:documentation><sdoc:displayName>GET /users/me</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__users_meResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET__folders_trash_items">
+<wsdl:documentation><sdoc:displayName>GET /folders/trash/items</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__folders_trash_itemsResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__folders__id_">
+<wsdl:documentation><sdoc:displayName>DELETE /folders/{id}</sdoc:displayName></wsdl:documentation>
+    </wsdl:operation>
+    <wsdl:operation name="POST__users__id__email_aliases">
+<wsdl:documentation><sdoc:displayName>POST /users/{id}/email_aliases</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:POST__users__id__email_aliasesRequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:POST__users__id__email_aliasesResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PUT__collaborations__id_">
+<wsdl:documentation><sdoc:displayName>PUT /collaborations/{id}</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:PUT__collaborations__id_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:PUT__collaborations__id_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET__users">
+<wsdl:documentation><sdoc:displayName>GET /users</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__usersResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="POST__files__id_">
+<wsdl:documentation><sdoc:displayName>POST /files/{id}</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:POST__files__id_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:POST__files__id_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET__users__id__memberships">
+<wsdl:documentation><sdoc:displayName>GET /users/{id}/memberships</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__users__id__membershipsResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="POST__comments">
+<wsdl:documentation><sdoc:displayName>POST /comments</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:POST__commentsRequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:POST__commentsResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET__search">
+<wsdl:documentation><sdoc:displayName>GET /search</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__searchResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET__tasks__id_">
+<wsdl:documentation><sdoc:displayName>GET /tasks/{id}</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__tasks__id_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="POST__groups">
+<wsdl:documentation><sdoc:displayName>POST /groups</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:POST__groupsRequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:POST__groupsResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PUT__comments__comment_id_">
+<wsdl:documentation><sdoc:displayName>PUT /comments/{comment_id}</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:PUT__comments__comment_id_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:PUT__comments__comment_id_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET__folders__id_">
+<wsdl:documentation><sdoc:displayName>GET /folders/{id}</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__folders__id_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="POST__group_memberships__id_">
+<wsdl:documentation><sdoc:displayName>POST /group_memberships/{id}</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:POST__group_memberships__id_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:POST__group_memberships__id_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET__users__id__email_aliases">
+<wsdl:documentation><sdoc:displayName>GET /users/{id}/email_aliases</sdoc:displayName></wsdl:documentation>
+      <wsdl:output message="tns:GET__users__id__email_aliasesResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="POST__group_memberships">
+<wsdl:documentation><sdoc:displayName>POST /group_memberships</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:POST__group_membershipsRequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:POST__group_membershipsResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__comments__comment_id_">
+<wsdl:documentation><sdoc:displayName>DELETE /comments/{comment_id}</sdoc:displayName></wsdl:documentation>
+    </wsdl:operation>
+    <wsdl:operation name="POST__upload_files_content">
+<wsdl:documentation><sdoc:displayName>POST /files/content</sdoc:displayName></wsdl:documentation>
+      <wsdl:input message="tns:POST__files_contentRequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:POST__files_contentResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Box_API_HookBinding" type="tns:Box_API_Hook">
+    <shttp:binding/>
+    <wsdl:operation name="PUT__tasks__id_">
+    <shttp:operation location="/tasks/{id}" method="PUT" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__files__id__versions__version_id_">
+    <shttp:operation inputSerialization="application/json" location="/files{id}/versions/{version_id}" method="DELETE"/>
+    </wsdl:operation>
+    <wsdl:operation name="PUT__task_assignments__id_">
+    <shttp:operation inputSerialization="application/json" location="/task_assignments/{id}" method="PUT" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__folders__id__item">
+    <shttp:operation location="/folders/{id}/item" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__folders__id__trash">
+    <shttp:operation location="/folders/{id}/trash" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__collaborations__id_">
+    <shttp:operation inputSerialization="application/json" location="/collaborations/{id}" method="DELETE"/>
+    </wsdl:operation>
+    <wsdl:operation name="POST__tasks">
+    <shttp:operation inputSerialization="application/json" location="/tasks" method="POST" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="POST__files__id__versions_current">
+    <shttp:operation inputSerialization="application/json" location="/files/{id}/versions/current" method="POST" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__comments__comment_id_">
+    <shttp:operation location="/comments{comment_id}" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__files__id__trash">
+    <shttp:operation inputSerialization="application/json" location="/files/{id}/trash" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__shared_items">
+    <shttp:operation location="/shared_items" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__files__id__trash">
+    <shttp:operation inputSerialization="application/json" location="/files/{id}/trash" method="DELETE"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__files__id___thumbnail_file_name_">
+    <shttp:operation location="/files/{id}/thumbnail_file_name" method="GET"/>
+    </wsdl:operation>
+    <wsdl:operation name="PUT__users__id__folders__folder_id_">
+    <shttp:operation inputSerialization="application/json" location="/users/{id}/folders/{folder_id}" method="PUT" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__files__id_">
+    <shttp:operation location="/files/{id}" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__group_memberships__id__collaborations">
+    <shttp:operation location="/group_memberships/{id}/colaborations" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="PUT__folders__id_">
+    <shttp:operation inputSerialization="application/json" location="/folders/{id}" method="PUT" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__group_memberships__id_">
+    <shttp:operation location="/group_memberships/{id}" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__files__id__comments">
+    <shttp:operation location="/files/{id}/comments" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__folders__id__collaborations">
+    <shttp:operation location="/folders/{id}/collaborations" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="PUT__files__id_">
+    <shttp:operation inputSerialization="application/json" location="/files/{id}" method="PUT" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="POST__folders__id__copy">
+    <shttp:operation inputSerialization="application/json" location="/folders/{id}/copy" method="POST" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="POST__task_assignments">
+    <shttp:operation inputSerialization="application/json" location="/task_assigments" method="POST" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__events">
+    <shttp:operation location="/events" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__group_memberships__id_">
+    <shttp:operation inputSerialization="application/json" location="/group/{memberships_id}" method="DELETE"/>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__groups__id_">
+    <shttp:operation inputSerialization="application/json" location="/groups/{id}" method="DELETE"/>
+    </wsdl:operation>
+    <wsdl:operation name="PUT__groups__id_">
+    <shttp:operation inputSerialization="application/json" location="/groups/{id}" method="PUT" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__users__id_">
+    <shttp:operation inputSerialization="application/json" location="/users/{id}" method="DELETE"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__groups">
+    <shttp:operation location="/groups" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="POST__folders__id_">
+    <shttp:operation inputSerialization="application/json" location="/folders/{id}" method="POST" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="POST__files__id__copy">
+    <shttp:operation inputSerialization="application/json" location="/files/{id}/copy" method="POST" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__files__id__tasks">
+    <shttp:operation location="/files{id}/tasks" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__files__id_">
+    <shttp:operation inputSerialization="application/json" location="/files/{id}" method="DELETE"/>
+    </wsdl:operation>
+    <wsdl:operation name="POST__files_content">
+    <shttp:operation inputSerialization="application/json" location="/files/content" method="POST" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__users__id__email_aliases__email_alias_id_">
+    <shttp:operation inputSerialization="application/json" location="/users/{id}/email_aliases/{email_alias_id}" method="DELETE"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__files__id__content">
+    <shttp:operation location="/files{id}/content" method="GET"/>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__folders__id__trash">
+    <shttp:operation inputSerialization="application/json" location="/folders/{id}/trash" method="DELETE"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__groups__id__memberships">
+    <shttp:operation location="/groups/{id}/memberships" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="POST__collaborations">
+    <shttp:operation inputSerialization="application/json" location="/collaborations" method="POST" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__collaborations__id_">
+    <shttp:operation location="/collaborations/{id}" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__task_assignments__id_">
+    <shttp:operation inputSerialization="application/json" location="/task/{assignments_id}" method="DELETE"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__task_assignments__id_">
+    <shttp:operation location="/task/{assignments_id}" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__tasks__id__assignments">
+    <shttp:operation location="/task/{id}/assignments" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="PUT__users__id_">
+    <shttp:operation inputSerialization="application/json" location="/users/{id}" method="PUT" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__tasks__id_">
+    <shttp:operation inputSerialization="application/json" location="/tasks/{id}" method="DELETE"/>
+    </wsdl:operation>
+    <wsdl:operation name="POST__folders">
+    <shttp:operation inputSerialization="application/json" location="/folders" method="POST" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="POST__users">
+    <shttp:operation inputSerialization="application/json" location="/users" method="POST" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__files__id__versions">
+    <shttp:operation location="/files/{id}/versions" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__users_me">
+    <shttp:operation location="/users/me" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__folders_trash_items">
+    <shttp:operation location="/filders/trash_tems" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__folders__id_">
+    <shttp:operation inputSerialization="application/json" location="/folders/{id}" method="DELETE"/>
+    </wsdl:operation>
+    <wsdl:operation name="POST__users__id__email_aliases">
+    <shttp:operation inputSerialization="application/json" location="/users/{id}/email_aliases" method="POST" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="PUT__collaborations__id_">
+    <shttp:operation inputSerialization="application/json" location="/collaborations/{id}" method="PUT" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__users">
+    <shttp:operation location="/users" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="POST__files__id_">
+    <shttp:operation inputSerialization="application/json" location="/files/{id}" method="POST" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__users__id__memberships">
+    <shttp:operation location="/users/{id}/memberships" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="POST__comments">
+    <shttp:operation inputSerialization="application/json" location="/comments" method="POST" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__search">
+    <shttp:operation location="/search" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__tasks__id_">
+    <shttp:operation location="/tasks/{id}" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="POST__groups">
+    <shttp:operation inputSerialization="application/json" location="/groups" method="POST" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="PUT__comments__comment_id_">
+    <shttp:operation inputSerialization="application/json" location="/comments/{comment_id}" method="PUT" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__folders__id_">
+    <shttp:operation location="/folders/{id}" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="POST__group_memberships__id_">
+    <shttp:operation location="/group/{memberships_id}" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="GET__users__id__email_aliases">
+    <shttp:operation location="/users/{id}/email_aliases" method="GET" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="POST__group_memberships">
+    <shttp:operation inputSerialization="application/json" location="/group/memberships" method="POST" outputSerialization="application/json"/>
+    </wsdl:operation>
+    <wsdl:operation name="DELETE__comments__comment_id_">
+    <shttp:operation inputSerialization="application/json" location="/comments/{comment_id}" method="DELETE"/>
+    </wsdl:operation>
+    <wsdl:operation name="POST__upload_files_content">
+    <shttp:operation inputSerialization="*/*" location="/upload/files/content" method="POST" outputSerialization="application/json"/>
+    </wsdl:operation>
+  </wsdl:binding>
+</wsdl:definitions>

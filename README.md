@@ -1,5 +1,6 @@
 # Box-API-Hook
-API Hook using SOA Software's Products to take a string input and create a file from the input, then store the file in BOX
+API Hook using SOA Software's Products to Merge both the Box Content and Box Upload API's into a single API, as well as integrate and hide the Box OAuth Auth steps. 
+
 ## BOX API 
 ### About the API
 - The Box Content API gives you access to the content management features you see in our web app and lets you extend them for use in your own app.
@@ -28,27 +29,27 @@ API Hook using SOA Software's Products to take a string input and create a file 
 - this will create a Box API Hook Organisation with the requisite artefacts needed to run the API.
 
 #### Verify Import
-- Expand the services folder in the Google Sheets API Hook you imported and find Box_API_Hook VS
+- Expand the services folder in the Box API Hook you imported and find Box_API_Hook VS
 
 #### Configure Security
-- select the Box_API_Hook VS
-- select the save process icon
-- Select the "PostFileToBox" process in the Processes branch
-- Select the "Process" tab
-- Double click on the "Initialise Bearer Token" script activity
-- replace the value in the "processContext.setVariable("Bearer","BAJKzHbVsE7o66zIJ0iGXa3gU4sdRIRw");" line with the token you copied from the Box Developer site
-- Click the Finish button
-- Click the save process icon
+- go to your <SOA Home>/sm70/scripts directory and run the encriptData.sh or encriptData.bat file
+- enter the token you copied from the Box Developer site
+- copy the resultant encrypted token
+- Go to PM and select the Box API Hook organisation
+- select the Policies folder
+- Select the Operational Policies folder
+- Select the "PolicyVariables" policy and then click the "Start New Version" action in the right-hand Actions Portlet
+- Click the "OK" button on the warning dialog
+- Click the "Modify" link on the "XML Policy" tab
+- replace the value in the "auth.token" attribute of the "NameValue" element with the encrypted token you copied from the output of the encriptData script
+- Click the "Apply" button
+- Click the "Activate Policy" action on the Right-Hand Policy Workflow portlet
 
 
 #### Verify Connectivity
-- Using curl -X PUT  -H "Content-Type: application/json" -d '"hello world"' http://"URL of the Listener of your ND"/box/file
-- The correct response should be:
-{"status":"Success"}
-- Log in to your Box Account [Box] (https://app.box.com)
-- ensure that there is a "API_HOOK" folder.
-- open the "API_HOOK" folder and ensure there is a "input.txt" file
-- Open that file, wait for the preview to generate the contents, and ensure that your input text posted in the curl request has been inserted into the file. In this case - "Hello World"
+- Using curl http://"URL of the Listener of your ND"/box_api_hook/search?query=lead/leads.txt&type=file
+- The correct response should be a JSON object listing the details of the leads.txt file in the lead folder. Of course if you do not have such a file or folder, then replace these with the file you wish to query, or leave the query as it is and you'll receive:
+{"total_count":0,"entries":[],"limit":30,"offset":0} 
 
 ### Modify and Build
 In the event you need to change the API Hook.   Here are the instructions to do so. 
