@@ -1,0 +1,11 @@
+#%RAML 0.8
+title: Box API Hook
+version: 1.0
+baseUri: https://soa.com
+/helloworld:
+  get:
+    description: <<returns all the Box files you own>>
+    responses:
+      200:
+        body:
+          application/json:
