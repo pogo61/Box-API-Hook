@@ -86,6 +86,39 @@ API Hook using SOA Software's Products to Merge both the Box Content and Box Upl
     "type": "user"
 }
 
+### How Hello World Works
+#### An Akana Integration Primer
+The Google_Sheets_API_Hook API is a "Virtual Service". That is, its interface is not that of a real service implementation. It can be a proxy to a "real" implementation, or it can be an aggregate (a combination) of a number of "real" implementations. In Policy Manager a "real" implementation is called a "Physical Service".
+Apart from offering a different interface to the Physical Service, a Virtual Service offers the ability to attach Policies for security, logging, QoS, and a number of other non-functional capabilities.
+Virtual Services also have the ability to have Custom Process and Scripts run before the Physical Service is called. Here is where a lot of the magic of Integration occurs.
+
+#### Hello World
+To create the helloworld operation the following was added to a base RAML document to create the box API Hook HelloWorld.raml document:  
+    /helloworld:  
+      &nbsp;get:  
+        &nbsp;&nbsp;description: "returns details about authorised user"
+        &nbsp;&nbsp;&nbsp;responses:  
+          &nbsp;&nbsp;&nbsp;&nbsp;200:  
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body:  
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;application/atom+xml:  
+
+Then a VS was created by using the RAML as the definition source.
+The root contect of the VS was made exactly the same as the root context of the Box API Hook VS. the consequense of this is that this simple HelloWorld VS and the Hook VS become a single VS.
+
+Then the /helloworld Operation in the VS was mapped to the GET /users/me operation in the Box API Hook PS.
+
+Go to the Box_API_Hook_Helloworld VS -> Operations Tab -> GET /hellowworld operation -> Process tab you'll see this image:
+![Helloworld process] 
+(https://github.com/pogo61/Context.io-API-Hook/blob/master/Screen%20Shot.png)
+
+Double click on the Process activity to see that it call's the Heloworld Process, which call's an invoke on the GET /users/me operation to make the Hello World operation call successful.
+
+
+### Create Your Own Integration with the Google Sheets API
+The Hello World operation is one simple way of integrating or extending your API's.
+Take a look at the [Google Sheets API Integration](https://github.com/pogo61/Google-Sheets-API-Integration).
+this will give you a deeper inderstanding of the richness of our gateway product in integrating to API's
+
 ### Modify and Build
 In the event you need to change the API Hook.   Here are the instructions to do so. 
 
