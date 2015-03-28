@@ -1,4 +1,9 @@
-# Box-API-Hook
+# Akana API HOOK
+![Image of Akana] 
+(https://www.akana.com/img/formerlyLOGO8.png) 
+[Akana.com](http://akana.com)
+
+## Box-API-Hook
 API Hook using SOA Software's Products to Merge both the Box Content and Box Upload API's into a single API, as well as integrate and hide the Box OAuth Auth steps. 
 
 ## BOX API 
@@ -8,15 +13,23 @@ API Hook using SOA Software's Products to Merge both the Box Content and Box Upl
 
 ### Pre-Reqs
 - Create a Box Developer account at [Box Developers] (https://app.box.com/developers/services)
-- Click on the "Create a Box Application" right hand menu item
-- enter the name of the application (any name you wish) into the "Application Name" field displayed, and ensure that the "Box content" radio button is selected
-- Click the "Create Application" button
-- If you are not already taken to the App you just created:
-    - Click on the "My Applications" right menu item
-    - Click the "Edit Application" button next to your newly created App
-- go to the "OAuth2 Parameters" section
-- Click the "Create a Developer Token" button
-- Copy the generated Token (This token has a 30 minute life)
+    - Click on the "Create a Box Application" right hand menu item
+    - enter the name of the application (any name you wish) into the "Application Name" field displayed, and ensure that the "Box content" radio button is selected
+    - Click the "Create Application" button
+    - If you are not already taken to the App you just created:
+        - Click on the "My Applications" right menu item
+        - Click the "Edit Application" button next to your newly created App
+    - go to the "OAuth2 Parameters" section
+    - Click the "Create a Developer Token" button
+    - Copy the generated Token (This token has a 30 minute life)
+- you must install the pso extensions custom polices:
+    + unzip the com.soa.pso.openapi.extensions_7.2.2.zip (available in this repository) into the <Policy Manager Home>/sm70 directory. This will result in files placed in the sm70/lib/pso.opeapi.extensions_7.2.2 subdirectory
+    + restart both PM and ND(s)
+    + Using the SOA Admin Console, install the following features in each PM container:
+        * SOA Professional Services OpenAPI Extensions
+        * SOA Professional Services OpenAPI Extensions UI
+    + Using the SOA Admin Console, install the following features in each ND container:
+        * SOA Professional Services OpenAPI Extensions
 
 ### Getting Started Instructions
 #### Download and Import
