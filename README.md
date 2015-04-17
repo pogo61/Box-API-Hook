@@ -12,7 +12,7 @@ API Hook using SOA Software's Products to Merge both the Box Content and Box Upl
 - API Documentation: [Box Content API docs] (https://developers.box.com/docs/)
 
 ### Pre-Reqs
-- Create a Box Developer account at [Box Developers] (https://app.box.com/developers/services)
+- Create a Box Developer account at [Box Developers] (https://app.box.com/developers/services) and define your App.
     - Click on the "Create a Box Application" right hand menu item
     - enter the name of the application (any name you wish) into the "Application Name" field displayed, and ensure that the "Box content" radio button is selected
     - Click the "Create Application" button
@@ -20,16 +20,22 @@ API Hook using SOA Software's Products to Merge both the Box Content and Box Upl
         - Click on the "My Applications" right menu item
         - Click the "Edit Application" button next to your newly created App
     - go to the "OAuth2 Parameters" section
-    - Click the "Create a Developer Token" button
-    - Copy the generated Token (This token has a 30 minute life)
+        - copy the "client_id"
+        - copy the "client_secret"
+        - place this value into the "redirect_uri" field: https://"ND HOST:ND HTTPS Port"/box_api_hook/auth_success
+        - ensure that the "Read and write all files and folders" Scope checkbox is checked
+    - go to the bottom of the page and click the "Save Application" button
 - you must install the pso extensions custom polices:
-    + unzip the com.soa.pso.openapi.extensions_7.2.2.zip (available in this repository) into the <Policy Manager Home>/sm70 directory. This will result in files placed in the sm70/lib/pso.opeapi.extensions_7.2.2 subdirectory
-    + restart both PM and ND(s)
-    + Using the SOA Admin Console, install the following features in each PM container:
-        * SOA Professional Services OpenAPI Extensions
-        * SOA Professional Services OpenAPI Extensions UI
-    + Using the SOA Admin Console, install the following features in each ND container:
-        * SOA Professional Services OpenAPI Extensions
+    + unzip the com.akana.pso.apihooks.extensions_7.2.0.zip (available in this repository) into the <Policy Manager Home>/sm70 directory. 
+    + unzip the com.akana.pso.apihooks.technology.preview_7.2.90.zip (available in this repository) into the <Policy Manager Home>/sm70 directory
+    + unzip the com.akana.pso.persistence_7.2.0.zip (available in this repository) into the <Policy Manager Home>/sm70 directory.
+    + stop all PM and ND(s)
+    + run the configurator in update mode for all the PM and ND instances (see your PM administrator about the "Installing Policy Manager x.y" guide)
+    + Using the SOA Admin Console, install the following Plug-ins in each PM container:
+        * Akana PSO Persistence
+    + Using the SOA Admin Console, install the following Plug-ins in each ND container:
+        * Akana APIHooks Enhancements
+    + restart all PM and ND(s)
 
 ### Getting Started Instructions
 #### Download and Import
@@ -46,26 +52,29 @@ API Hook using SOA Software's Products to Merge both the Box Content and Box Upl
 #### Verify Import
 - Expand the services folder in the Box API Hook you imported and find Box_API_Hook VS
 
+#### Activate Anonymous Contract
+- Expand the contracts folder in the Google Sheets API Hook you imported and find the "Anonymous" contract under the "Provided Contracts" folder
+- click on the "Activate Contract" workflow activity in the righ-hand Activities portlet
+- ensure that the status changes to "Workflow Is Completed"
+
 #### Configure Security
-- go to your <SOA Home>/sm70/scripts directory and run the encriptData.sh or encriptData.bat file
-- enter the token you copied from the Box Developer site
-- copy the resultant encrypted token
-- Go to PM and select the Box API Hook organisation
-- select the Policies -> Operational Policies -> "PolicyVariables" policy 
-    - click the "Start New Version" action in the right-hand Actions Portlet
-    - Click the "OK" button on the warning dialog
-    - Click the "Modify" link on the "XML Policy" tab
-    - replace the value in the "auth.token" attribute of the "NameValue" element with the encrypted token you copied from the output of the encriptData script
-    - Click the "Apply" button
-    - Click the "Activate Policy" action on the Right-Hand Policy Workflow portlet
-    - ensure the workflow state is "Active"
-- select the Policies -> Operational Policies -> "AddAuthToken" policy
-    - Click the "Activate Policy" action on the Right-Hand Policy Workflow portlet
-    - ensure the workflow state is "Active"
+- Go to Box API Hook -> Policies -> Operational Policies ->    ProcessVariables policy
+    - Click "modify" in the XML Policy Tab. An XML Policy Content editor dialog will be displayed.
+    - change the value of the 'appkey' element to be the 'client_id' value you saved from the Box Developers App Console, above. 
+    - Go to the "PM home Dir"/sm70/scripts directory and run the encryptData script/batch file and enter the 'client_secret' you saved from the Box Developers App Console, above.
+    - copy the resultant value (including the two '==' at the end of the string)
+    - change the value of the 'appsecret' element to be the 'client_secret' value you just copied.
+    - change the value of the 'redirectURI' element to be the 'Redirect URL' value you added in the the Box Developers App Console, above.
+    - save the changes
+    - click on the "Activate Policy" workflow activity in the righ-hand Activities portlet
+    - ensure that the status changes to "State: Active"
+- Go to Google Sheets API Hook -> Policies -> Operational Policies ->    AddAuthToken policy
+    - click on the "Activate Policy" workflow activity in the righ-hand Activities portlet
+    - ensure that the status changes to "State: Active"
 
 
 #### Verify Connectivity
-- Using curl http://"URL of the Listener of your ND"/box_api_hook/helloworld
+- Using curl -H "authKey:<the value authKey>" http://"URL of the Listener of your ND"/box_api_hook/helloworld
 - The correct response should be a JSON object listing the details of the user owning the credentials being used to make the call:
 {
     "address": "",
@@ -85,6 +94,9 @@ API Hook using SOA Software's Products to Merge both the Box Content and Box Upl
     "timezone": "Australia/Sydney",
     "type": "user"
 }
+
+*Note: the authKey in the curl request, above, is retrieved by using the process in the [Dropbox 3-legged OAuth Client.pdf] (https://github.com/pogo61/Dropbox-API-Hook/blob/master/src/Dropbox%203-legged%20OAuth%20Client.pdf) file in the /src directory*
+
 
 ### How Hello World Works
 #### An Akana Integration Primer

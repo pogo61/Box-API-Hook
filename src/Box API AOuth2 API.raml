@@ -1,0 +1,51 @@
+#%RAML 0.8
+title: Box API AOuth2 API
+version: 1.0
+baseUri: https://app.box.com/api/oauth2
+/authorize:
+  get:
+    description: <<insert text or markdown here>>
+    queryParameters: 
+          "response_type": 
+            description: the value must be "code"
+            type: string
+            required: true
+          "client_id": 
+            description: client ID of the app defined at https://app.box.com/developers
+            type: string
+            required: true
+          "state": 
+            description: url encoded value of "=client secret defined at https://app.box.com/developers
+            type: integer
+            required: true
+/token:
+  post:
+      description: <<This endpoint only applies to apps using the authorization code flow. An app calls this endpoint to acquire a bearer token once the user has authorized the app.
+       Calls to /oauth2/token need to be authenticated using the apps's key and secret. These can either be passed as POST parameters (see parameters below) or via HTTP basic authentication. If basic authentication is used, the app key should be provided as the username, and the app secret should be provided as the password.>>
+      queryParameters:
+        grant_type:
+          description:  The grant type, which must be authorization_code
+          required: true
+          type: string
+        code:
+          description: The code acquired by directing users to /oauth2/authorize?response_type=code.
+          required: true
+          type: string
+        client_id:
+          description: If credentials are passed in POST parameters, this parameter should be present and should be the app's key (found in the App Console).
+          required: false
+          type: string
+        client_secret:
+          description:  If credentials are passed in POST parameters, this parameter should be present and should be the app's secret.
+          required: false
+          type: string
+        redirect_uri:
+          description:  Only used to validate that it matches the original /oauth2/authorize, not used to redirect again.
+          required: false
+          type: string
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {"access_token": "ABCDEFG", "token_type": "bearer", "uid": "12345"}
