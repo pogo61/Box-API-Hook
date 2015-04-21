@@ -49,3 +49,14 @@ baseUri: https://app.box.com/api/oauth2
             application/json:
               example: |
                 {"access_token": "ABCDEFG", "token_type": "bearer", "uid": "12345"}
+/auth_success:
+  displayName: Re-direct URL for box Auth server
+  get:
+    description: <<send auth token and status>>
+    queryParameters:
+      code:
+        type: string
+        required: true
+      status:
+        type: string
+        required: true
